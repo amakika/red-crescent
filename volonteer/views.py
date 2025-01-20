@@ -60,40 +60,41 @@ class LoginView(APIView):
             username = request.data.get('username')
             password = request.data.get('password')
 
-            # Log the incoming request data
-            logger.info(f"Login attempt for username: {username}")
-
             if not username or not password:
                 return Response(
                     {'error': 'Username and password are required.'},
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
+            # Add this check to ensure user exists
+            try:
+                user = User.objects.get(username=username)
+            except User.DoesNotExist:
+                return Response(
+                    {'error': 'User not found'},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+
             # Authenticate the user
             user = authenticate(username=username, password=password)
 
-            if user:
-                # Log successful login
-                logger.info(f"User {username} authenticated successfully")
-                refresh = RefreshToken.for_user(user)
-                return Response({
-                    'access': str(refresh.access_token),
-                    'refresh': str(refresh),
-                    'user': UserSerializer(user).data
-                })
-            else:
-                # Log failed login attempt
-                logger.warning(f"Failed login attempt for username: {username}")
+            if user is None:
                 return Response(
                     {'error': 'Invalid credentials'},
                     status=status.HTTP_401_UNAUTHORIZED
                 )
 
+            refresh = RefreshToken.for_user(user)
+            return Response({
+                'access': str(refresh.access_token),
+                'refresh': str(refresh),
+                'user': UserSerializer(user).data
+            })
+
         except Exception as e:
-            # Log the exception
             logger.error(f"Error in LoginView: {str(e)}", exc_info=True)
             return Response(
-                {'error': 'An internal server error occurred.'},
+                {'error': str(e)},  # Return the actual error message
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
