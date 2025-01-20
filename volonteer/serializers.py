@@ -8,7 +8,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'achievements', 'total_hours', 'completed_tasks']
+        fields = '__all__'
+        
         extra_kwargs = {
             'profile_picture': {'write_only': True},
             'profile_picture_width': {'read_only': True},
