@@ -1,0 +1,795 @@
+(0.259) 
+            SELECT
+                c.relname,
+                CASE
+                    WHEN c.relispartition THEN 'p'
+                    WHEN c.relkind IN ('m', 'v') THEN 'v'
+                    ELSE 't'
+                END,
+                obj_description(c.oid, 'pg_class')
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('f', 'm', 'p', 'r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid)
+        ; args=None; alias=default
+(0.273) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+(0.331) 
+            SELECT
+                c.relname,
+                CASE
+                    WHEN c.relispartition THEN 'p'
+                    WHEN c.relkind IN ('m', 'v') THEN 'v'
+                    ELSE 't'
+                END,
+                obj_description(c.oid, 'pg_class')
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('f', 'm', 'p', 'r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid)
+        ; args=None; alias=default
+(0.435) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+(0.397) 
+            SELECT
+                c.relname,
+                CASE
+                    WHEN c.relispartition THEN 'p'
+                    WHEN c.relkind IN ('m', 'v') THEN 'v'
+                    ELSE 't'
+                END,
+                obj_description(c.oid, 'pg_class')
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('f', 'm', 'p', 'r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid)
+        ; args=None; alias=default
+(0.263) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+(0.804) 
+            SELECT
+                c.relname,
+                CASE
+                    WHEN c.relispartition THEN 'p'
+                    WHEN c.relkind IN ('m', 'v') THEN 'v'
+                    ELSE 't'
+                END,
+                obj_description(c.oid, 'pg_class')
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('f', 'm', 'p', 'r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid)
+        ; args=None; alias=default
+(0.325) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+(0.335) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'admin'; args=('admin',); alias=default
+(1.135) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'admin' AND "django_content_type"."model" IN ('logentry')); args=('admin', 'logentry'); alias=default
+(0.265) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (1) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(1,); alias=default
+(0.343) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'admin'; args=('admin',); alias=default
+(0.276) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'auth'; args=('auth',); alias=default
+(0.481) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'auth' AND "django_content_type"."model" IN ('group', 'permission')); args=('auth', 'group', 'permission'); alias=default
+(1.022) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (2, 3) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(2, 3); alias=default
+(0.274) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'auth'; args=('auth',); alias=default
+(0.718) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'contenttypes'; args=('contenttypes',); alias=default
+(0.275) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'contenttypes' AND "django_content_type"."model" IN ('contenttype')); args=('contenttypes', 'contenttype'); alias=default
+(0.360) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (4) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(4,); alias=default
+(0.274) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'contenttypes'; args=('contenttypes',); alias=default
+(0.380) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'sessions'; args=('sessions',); alias=default
+(1.205) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'sessions' AND "django_content_type"."model" IN ('session')); args=('sessions', 'session'); alias=default
+(0.795) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (5) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(5,); alias=default
+(0.264) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'sessions'; args=('sessions',); alias=default
+(0.299) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'volonteer'; args=('volonteer',); alias=default
+(0.326) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'volonteer' AND "django_content_type"."model" IN ('achievement', 'task', 'event', 'user', 'statistic', 'leaderboard')); args=('volonteer', 'achievement', 'task', 'event', 'user', 'statistic', 'leaderboard'); alias=default
+(0.343) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (6, 7, 8, 9, 10, 11) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(6, 7, 8, 9, 10, 11); alias=default
+(1.311) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'volonteer'; args=('volonteer',); alias=default
+(0.379) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'authtoken'; args=('authtoken',); alias=default
+(1.394) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'authtoken' AND "django_content_type"."model" IN ('tokenproxy', 'token')); args=('authtoken', 'tokenproxy', 'token'); alias=default
+(0.270) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (12, 13) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(12, 13); alias=default
+(0.602) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'authtoken'; args=('authtoken',); alias=default
+(0.327) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'cloudinary'; args=('cloudinary',); alias=default
+(0.335) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'cloudinary'; args=('cloudinary',); alias=default
+(0.278) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'token_blacklist'; args=('token_blacklist',); alias=default
+(0.303) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'token_blacklist' AND "django_content_type"."model" IN ('outstandingtoken', 'blacklistedtoken')); args=('token_blacklist', 'outstandingtoken', 'blacklistedtoken'); alias=default
+(0.377) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (14, 15) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(14, 15); alias=default
+(0.273) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'token_blacklist'; args=('token_blacklist',); alias=default
+(0.268) 
+            SELECT
+                c.relname,
+                CASE
+                    WHEN c.relispartition THEN 'p'
+                    WHEN c.relkind IN ('m', 'v') THEN 'v'
+                    ELSE 't'
+                END,
+                obj_description(c.oid, 'pg_class')
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('f', 'm', 'p', 'r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid)
+        ; args=None; alias=default
+(0.341) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+(0.378) 
+            SELECT
+                c.relname,
+                CASE
+                    WHEN c.relispartition THEN 'p'
+                    WHEN c.relkind IN ('m', 'v') THEN 'v'
+                    ELSE 't'
+                END,
+                obj_description(c.oid, 'pg_class')
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('f', 'm', 'p', 'r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid)
+        ; args=None; alias=default
+(0.375) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+(0.275) 
+            SELECT
+                c.relname,
+                CASE
+                    WHEN c.relispartition THEN 'p'
+                    WHEN c.relkind IN ('m', 'v') THEN 'v'
+                    ELSE 't'
+                END,
+                obj_description(c.oid, 'pg_class')
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('f', 'm', 'p', 'r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid)
+        ; args=None; alias=default
+(0.594) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+(0.317) 
+            SELECT
+                c.relname,
+                CASE
+                    WHEN c.relispartition THEN 'p'
+                    WHEN c.relkind IN ('m', 'v') THEN 'v'
+                    ELSE 't'
+                END,
+                obj_description(c.oid, 'pg_class')
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('f', 'm', 'p', 'r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid)
+        ; args=None; alias=default
+(0.637) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+(0.370) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'admin'; args=('admin',); alias=default
+(0.271) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'admin' AND "django_content_type"."model" IN ('logentry')); args=('admin', 'logentry'); alias=default
+(1.405) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (1) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(1,); alias=default
+(0.272) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'admin'; args=('admin',); alias=default
+(0.326) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'auth'; args=('auth',); alias=default
+(0.269) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'auth' AND "django_content_type"."model" IN ('permission', 'group')); args=('auth', 'permission', 'group'); alias=default
+(0.481) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (2, 3) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(2, 3); alias=default
+(1.036) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'auth'; args=('auth',); alias=default
+(0.667) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'contenttypes'; args=('contenttypes',); alias=default
+(0.359) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'contenttypes' AND "django_content_type"."model" IN ('contenttype')); args=('contenttypes', 'contenttype'); alias=default
+(0.277) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (4) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(4,); alias=default
+(0.311) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'contenttypes'; args=('contenttypes',); alias=default
+(0.378) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'sessions'; args=('sessions',); alias=default
+(0.380) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'sessions' AND "django_content_type"."model" IN ('session')); args=('sessions', 'session'); alias=default
+(0.261) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (5) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(5,); alias=default
+(0.277) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'sessions'; args=('sessions',); alias=default
+(0.263) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'volonteer'; args=('volonteer',); alias=default
+(0.331) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'volonteer' AND "django_content_type"."model" IN ('leaderboard', 'statistic', 'achievement', 'user', 'task', 'event')); args=('volonteer', 'leaderboard', 'statistic', 'achievement', 'user', 'task', 'event'); alias=default
+(0.376) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (6, 7, 8, 9, 10, 11) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(6, 7, 8, 9, 10, 11); alias=default
+(0.276) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'volonteer'; args=('volonteer',); alias=default
+(0.482) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'authtoken'; args=('authtoken',); alias=default
+(0.377) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'authtoken' AND "django_content_type"."model" IN ('tokenproxy', 'token')); args=('authtoken', 'tokenproxy', 'token'); alias=default
+(0.263) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (12, 13) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(12, 13); alias=default
+(0.281) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'authtoken'; args=('authtoken',); alias=default
+(0.254) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'cloudinary'; args=('cloudinary',); alias=default
+(0.333) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'cloudinary'; args=('cloudinary',); alias=default
+(0.377) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'token_blacklist'; args=('token_blacklist',); alias=default
+(0.275) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'token_blacklist' AND "django_content_type"."model" IN ('blacklistedtoken', 'outstandingtoken')); args=('token_blacklist', 'blacklistedtoken', 'outstandingtoken'); alias=default
+(0.377) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (14, 15) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(14, 15); alias=default
+(0.373) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'token_blacklist'; args=('token_blacklist',); alias=default
+(0.414) 
+            SELECT
+                c.relname,
+                CASE
+                    WHEN c.relispartition THEN 'p'
+                    WHEN c.relkind IN ('m', 'v') THEN 'v'
+                    ELSE 't'
+                END,
+                obj_description(c.oid, 'pg_class')
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('f', 'm', 'p', 'r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid)
+        ; args=None; alias=default
+(0.413) 
+            SELECT
+                c.relname,
+                CASE
+                    WHEN c.relispartition THEN 'p'
+                    WHEN c.relkind IN ('m', 'v') THEN 'v'
+                    ELSE 't'
+                END,
+                obj_description(c.oid, 'pg_class')
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('f', 'm', 'p', 'r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid)
+        ; args=None; alias=default
+(0.306) 
+            SELECT
+                c.relname,
+                CASE
+                    WHEN c.relispartition THEN 'p'
+                    WHEN c.relkind IN ('m', 'v') THEN 'v'
+                    ELSE 't'
+                END,
+                obj_description(c.oid, 'pg_class')
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('f', 'm', 'p', 'r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid)
+        ; args=None; alias=default
+(0.382) 
+            SELECT
+                c.relname,
+                CASE
+                    WHEN c.relispartition THEN 'p'
+                    WHEN c.relkind IN ('m', 'v') THEN 'v'
+                    ELSE 't'
+                END,
+                obj_description(c.oid, 'pg_class')
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('f', 'm', 'p', 'r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid)
+        ; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+CREATE TABLE "django_migrations" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "app" varchar(255) NOT NULL, "name" varchar(255) NOT NULL, "applied" timestamp with time zone NOT NULL); (params None)
+(0.818) CREATE TABLE "django_migrations" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "app" varchar(255) NOT NULL, "name" varchar(255) NOT NULL, "applied" timestamp with time zone NOT NULL); args=None; alias=default
+(0.333) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+CREATE TABLE "django_content_type" ("id" integer NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "name" varchar(100) NOT NULL, "app_label" varchar(100) NOT NULL, "model" varchar(100) NOT NULL); (params None)
+(0.762) CREATE TABLE "django_content_type" ("id" integer NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "name" varchar(100) NOT NULL, "app_label" varchar(100) NOT NULL, "model" varchar(100) NOT NULL); args=None; alias=default
+ALTER TABLE "django_content_type" ADD CONSTRAINT "django_content_type_app_label_model_76bd3d3b_uniq" UNIQUE ("app_label", "model"); (params None)
+(0.379) ALTER TABLE "django_content_type" ADD CONSTRAINT "django_content_type_app_label_model_76bd3d3b_uniq" UNIQUE ("app_label", "model"); args=None; alias=default
+(0.276) 
+            SELECT
+                c.relname,
+                CASE
+                    WHEN c.relispartition THEN 'p'
+                    WHEN c.relkind IN ('m', 'v') THEN 'v'
+                    ELSE 't'
+                END,
+                obj_description(c.oid, 'pg_class')
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('f', 'm', 'p', 'r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid)
+        ; args=None; alias=default
+(0.277) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('contenttypes', '0001_initial', '2025-01-20T08:24:54.074023+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('contenttypes', '0001_initial', datetime.datetime(2025, 1, 20, 8, 24, 54, 74023, tzinfo=datetime.timezone.utc)); alias=default
+(0.251) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+ALTER TABLE "django_content_type" ALTER COLUMN "name" DROP NOT NULL; (params None)
+(0.637) ALTER TABLE "django_content_type" ALTER COLUMN "name" DROP NOT NULL; args=None; alias=default
+ALTER TABLE "django_content_type" DROP COLUMN "name" CASCADE; (params None)
+(0.275) ALTER TABLE "django_content_type" DROP COLUMN "name" CASCADE; args=None; alias=default
+(0.277) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('contenttypes', '0002_remove_content_type_name', '2025-01-20T08:24:55.526398+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('contenttypes', '0002_remove_content_type_name', datetime.datetime(2025, 1, 20, 8, 24, 55, 526398, tzinfo=datetime.timezone.utc)); alias=default
+(0.259) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+CREATE TABLE "auth_permission" ("id" integer NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "name" varchar(50) NOT NULL, "content_type_id" integer NOT NULL, "codename" varchar(100) NOT NULL); (params None)
+(0.514) CREATE TABLE "auth_permission" ("id" integer NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "name" varchar(50) NOT NULL, "content_type_id" integer NOT NULL, "codename" varchar(100) NOT NULL); args=None; alias=default
+CREATE TABLE "auth_group" ("id" integer NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "name" varchar(80) NOT NULL UNIQUE); (params None)
+(0.277) CREATE TABLE "auth_group" ("id" integer NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "name" varchar(80) NOT NULL UNIQUE); args=None; alias=default
+CREATE TABLE "auth_group_permissions" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "group_id" integer NOT NULL, "permission_id" integer NOT NULL); (params None)
+(0.276) CREATE TABLE "auth_group_permissions" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "group_id" integer NOT NULL, "permission_id" integer NOT NULL); args=None; alias=default
+ALTER TABLE "auth_permission" ADD CONSTRAINT "auth_permission_content_type_id_codename_01ab375a_uniq" UNIQUE ("content_type_id", "codename"); (params None)
+(0.279) ALTER TABLE "auth_permission" ADD CONSTRAINT "auth_permission_content_type_id_codename_01ab375a_uniq" UNIQUE ("content_type_id", "codename"); args=None; alias=default
+ALTER TABLE "auth_permission" ADD CONSTRAINT "auth_permission_content_type_id_2f476e4b_fk_django_co" FOREIGN KEY ("content_type_id") REFERENCES "django_content_type" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.271) ALTER TABLE "auth_permission" ADD CONSTRAINT "auth_permission_content_type_id_2f476e4b_fk_django_co" FOREIGN KEY ("content_type_id") REFERENCES "django_content_type" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+CREATE INDEX "auth_permission_content_type_id_2f476e4b" ON "auth_permission" ("content_type_id"); (params None)
+(0.277) CREATE INDEX "auth_permission_content_type_id_2f476e4b" ON "auth_permission" ("content_type_id"); args=None; alias=default
+CREATE INDEX "auth_group_name_a6ea08ec_like" ON "auth_group" ("name" varchar_pattern_ops); (params None)
+(0.268) CREATE INDEX "auth_group_name_a6ea08ec_like" ON "auth_group" ("name" varchar_pattern_ops); args=None; alias=default
+ALTER TABLE "auth_group_permissions" ADD CONSTRAINT "auth_group_permissions_group_id_permission_id_0cd325b0_uniq" UNIQUE ("group_id", "permission_id"); (params None)
+(0.288) ALTER TABLE "auth_group_permissions" ADD CONSTRAINT "auth_group_permissions_group_id_permission_id_0cd325b0_uniq" UNIQUE ("group_id", "permission_id"); args=None; alias=default
+ALTER TABLE "auth_group_permissions" ADD CONSTRAINT "auth_group_permissions_group_id_b120cbf9_fk_auth_group_id" FOREIGN KEY ("group_id") REFERENCES "auth_group" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.276) ALTER TABLE "auth_group_permissions" ADD CONSTRAINT "auth_group_permissions_group_id_b120cbf9_fk_auth_group_id" FOREIGN KEY ("group_id") REFERENCES "auth_group" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+ALTER TABLE "auth_group_permissions" ADD CONSTRAINT "auth_group_permissio_permission_id_84c5c92e_fk_auth_perm" FOREIGN KEY ("permission_id") REFERENCES "auth_permission" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.261) ALTER TABLE "auth_group_permissions" ADD CONSTRAINT "auth_group_permissio_permission_id_84c5c92e_fk_auth_perm" FOREIGN KEY ("permission_id") REFERENCES "auth_permission" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+CREATE INDEX "auth_group_permissions_group_id_b120cbf9" ON "auth_group_permissions" ("group_id"); (params None)
+(0.279) CREATE INDEX "auth_group_permissions_group_id_b120cbf9" ON "auth_group_permissions" ("group_id"); args=None; alias=default
+CREATE INDEX "auth_group_permissions_permission_id_84c5c92e" ON "auth_group_permissions" ("permission_id"); (params None)
+(0.295) CREATE INDEX "auth_group_permissions_permission_id_84c5c92e" ON "auth_group_permissions" ("permission_id"); args=None; alias=default
+(0.260) COMMIT; args=None; alias=default
+(0.267) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('auth', '0001_initial', '2025-01-20T08:24:59.922644+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('auth', '0001_initial', datetime.datetime(2025, 1, 20, 8, 24, 59, 922644, tzinfo=datetime.timezone.utc)); alias=default
+(0.000) BEGIN; args=None; alias=default
+ALTER TABLE "auth_permission" ALTER COLUMN "name" TYPE varchar(255); (params None)
+(0.529) ALTER TABLE "auth_permission" ALTER COLUMN "name" TYPE varchar(255); args=None; alias=default
+(0.312) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('auth', '0002_alter_permission_name_max_length', '2025-01-20T08:25:00.730037+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('auth', '0002_alter_permission_name_max_length', datetime.datetime(2025, 1, 20, 8, 25, 0, 730037, tzinfo=datetime.timezone.utc)); alias=default
+(0.280) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.864) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('auth', '0003_alter_user_email_max_length', '2025-01-20T08:25:01.335488+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('auth', '0003_alter_user_email_max_length', datetime.datetime(2025, 1, 20, 8, 25, 1, 335488, tzinfo=datetime.timezone.utc)); alias=default
+(0.279) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.635) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('auth', '0004_alter_user_username_opts', '2025-01-20T08:25:02.491074+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('auth', '0004_alter_user_username_opts', datetime.datetime(2025, 1, 20, 8, 25, 2, 491074, tzinfo=datetime.timezone.utc)); alias=default
+(0.253) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.601) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('auth', '0005_alter_user_last_login_null', '2025-01-20T08:25:03.391092+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('auth', '0005_alter_user_last_login_null', datetime.datetime(2025, 1, 20, 8, 25, 3, 391092, tzinfo=datetime.timezone.utc)); alias=default
+(0.385) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.755) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('auth', '0006_require_contenttypes_0002', '2025-01-20T08:25:04.380363+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('auth', '0006_require_contenttypes_0002', datetime.datetime(2025, 1, 20, 8, 25, 4, 380363, tzinfo=datetime.timezone.utc)); alias=default
+(0.270) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.755) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('auth', '0007_alter_validators_add_error_messages', '2025-01-20T08:25:05.417340+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('auth', '0007_alter_validators_add_error_messages', datetime.datetime(2025, 1, 20, 8, 25, 5, 417340, tzinfo=datetime.timezone.utc)); alias=default
+(0.274) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.579) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('auth', '0008_alter_user_username_max_length', '2025-01-20T08:25:06.460548+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('auth', '0008_alter_user_username_max_length', datetime.datetime(2025, 1, 20, 8, 25, 6, 460548, tzinfo=datetime.timezone.utc)); alias=default
+(0.265) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.628) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('auth', '0009_alter_user_last_name_max_length', '2025-01-20T08:25:07.324502+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('auth', '0009_alter_user_last_name_max_length', datetime.datetime(2025, 1, 20, 8, 25, 7, 324502, tzinfo=datetime.timezone.utc)); alias=default
+(0.259) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+ALTER TABLE "auth_group" ALTER COLUMN "name" TYPE varchar(150); (params None)
+(0.618) ALTER TABLE "auth_group" ALTER COLUMN "name" TYPE varchar(150); args=None; alias=default
+(0.261) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('auth', '0010_alter_group_name_max_length', '2025-01-20T08:25:08.839453+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('auth', '0010_alter_group_name_max_length', datetime.datetime(2025, 1, 20, 8, 25, 8, 839453, tzinfo=datetime.timezone.utc)); alias=default
+(0.279) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.693) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('auth', '0011_update_proxy_permissions', '2025-01-20T08:25:09.391651+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('auth', '0011_update_proxy_permissions', datetime.datetime(2025, 1, 20, 8, 25, 9, 391651, tzinfo=datetime.timezone.utc)); alias=default
+(0.273) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.638) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('auth', '0012_alter_user_first_name_max_length', '2025-01-20T08:25:10.370045+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('auth', '0012_alter_user_first_name_max_length', datetime.datetime(2025, 1, 20, 8, 25, 10, 370045, tzinfo=datetime.timezone.utc)); alias=default
+(0.257) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+CREATE TABLE "volonteer_statistic" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "total_volunteers" integer NOT NULL, "total_hours" numeric(10, 2) NOT NULL, "male_volunteers" integer NOT NULL, "female_volunteers" integer NOT NULL, "other_gender_volunteers" integer NOT NULL, "updated_at" timestamp with time zone NOT NULL); (params None)
+(0.549) CREATE TABLE "volonteer_statistic" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "total_volunteers" integer NOT NULL, "total_hours" numeric(10, 2) NOT NULL, "male_volunteers" integer NOT NULL, "female_volunteers" integer NOT NULL, "other_gender_volunteers" integer NOT NULL, "updated_at" timestamp with time zone NOT NULL); args=None; alias=default
+CREATE TABLE "volonteer_user" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "password" varchar(128) NOT NULL, "last_login" timestamp with time zone NULL, "is_superuser" boolean NOT NULL, "username" varchar(150) NOT NULL UNIQUE, "first_name" varchar(150) NOT NULL, "last_name" varchar(150) NOT NULL, "email" varchar(254) NOT NULL, "is_staff" boolean NOT NULL, "is_active" boolean NOT NULL, "date_joined" timestamp with time zone NOT NULL, "gender" varchar(10) NULL, "role" varchar(15) NULL, "phone_number" varchar(15) NULL, "total_hours" numeric(5, 2) NOT NULL, "xp_points" integer NOT NULL, "profile_picture" varchar(255) NULL, "profile_picture_width" integer NULL CHECK ("profile_picture_width" >= 0), "profile_picture_height" integer NULL CHECK ("profile_picture_height" >= 0)); (params None)
+(0.298) CREATE TABLE "volonteer_user" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "password" varchar(128) NOT NULL, "last_login" timestamp with time zone NULL, "is_superuser" boolean NOT NULL, "username" varchar(150) NOT NULL UNIQUE, "first_name" varchar(150) NOT NULL, "last_name" varchar(150) NOT NULL, "email" varchar(254) NOT NULL, "is_staff" boolean NOT NULL, "is_active" boolean NOT NULL, "date_joined" timestamp with time zone NOT NULL, "gender" varchar(10) NULL, "role" varchar(15) NULL, "phone_number" varchar(15) NULL, "total_hours" numeric(5, 2) NOT NULL, "xp_points" integer NOT NULL, "profile_picture" varchar(255) NULL, "profile_picture_width" integer NULL CHECK ("profile_picture_width" >= 0), "profile_picture_height" integer NULL CHECK ("profile_picture_height" >= 0)); args=None; alias=default
+CREATE TABLE "volonteer_user_groups" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "user_id" bigint NOT NULL, "group_id" integer NOT NULL); (params None)
+(0.286) CREATE TABLE "volonteer_user_groups" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "user_id" bigint NOT NULL, "group_id" integer NOT NULL); args=None; alias=default
+CREATE TABLE "volonteer_user_user_permissions" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "user_id" bigint NOT NULL, "permission_id" integer NOT NULL); (params None)
+(0.285) CREATE TABLE "volonteer_user_user_permissions" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "user_id" bigint NOT NULL, "permission_id" integer NOT NULL); args=None; alias=default
+CREATE TABLE "volonteer_achievement" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "name" varchar(100) NOT NULL, "description" text NULL, "criteria_hours" integer NULL CHECK ("criteria_hours" >= 0), "criteria_tasks" integer NULL CHECK ("criteria_tasks" >= 0)); (params None)
+(0.284) CREATE TABLE "volonteer_achievement" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "name" varchar(100) NOT NULL, "description" text NULL, "criteria_hours" integer NULL CHECK ("criteria_hours" >= 0), "criteria_tasks" integer NULL CHECK ("criteria_tasks" >= 0)); args=None; alias=default
+CREATE TABLE "volonteer_achievement_users" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "achievement_id" bigint NOT NULL, "user_id" bigint NOT NULL); (params None)
+(0.283) CREATE TABLE "volonteer_achievement_users" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "achievement_id" bigint NOT NULL, "user_id" bigint NOT NULL); args=None; alias=default
+CREATE TABLE "volonteer_user_achievements" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "user_id" bigint NOT NULL, "achievement_id" bigint NOT NULL); (params None)
+(0.299) CREATE TABLE "volonteer_user_achievements" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "user_id" bigint NOT NULL, "achievement_id" bigint NOT NULL); args=None; alias=default
+CREATE TABLE "volonteer_event" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "title" varchar(255) NOT NULL, "description" text NOT NULL, "date" timestamp with time zone NOT NULL, "location" varchar(255) NOT NULL, "is_public" boolean NOT NULL, "coordinator_id" bigint NULL); (params None)
+(0.281) CREATE TABLE "volonteer_event" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "title" varchar(255) NOT NULL, "description" text NOT NULL, "date" timestamp with time zone NOT NULL, "location" varchar(255) NOT NULL, "is_public" boolean NOT NULL, "coordinator_id" bigint NULL); args=None; alias=default
+CREATE TABLE "volonteer_event_registered_volunteers" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "event_id" bigint NOT NULL, "user_id" bigint NOT NULL); (params None)
+(0.317) CREATE TABLE "volonteer_event_registered_volunteers" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "event_id" bigint NOT NULL, "user_id" bigint NOT NULL); args=None; alias=default
+CREATE TABLE "volonteer_leaderboard" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "rank" integer NOT NULL, "xp_points" integer NOT NULL, "total_hours" numeric(5, 2) NOT NULL, "user_id" bigint NOT NULL UNIQUE); (params None)
+(0.305) CREATE TABLE "volonteer_leaderboard" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "rank" integer NOT NULL, "xp_points" integer NOT NULL, "total_hours" numeric(5, 2) NOT NULL, "user_id" bigint NOT NULL UNIQUE); args=None; alias=default
+CREATE TABLE "volonteer_task" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "title" varchar(255) NOT NULL, "description" text NOT NULL, "photo" varchar(255) NULL, "status" varchar(15) NOT NULL, "due_date" timestamp with time zone NOT NULL, "hours_to_complete" numeric(5, 2) NOT NULL, "created_at" timestamp with time zone NOT NULL, "updated_at" timestamp with time zone NOT NULL, "is_public" boolean NOT NULL, "coordinator_id" bigint NULL); (params None)
+(0.283) CREATE TABLE "volonteer_task" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "title" varchar(255) NOT NULL, "description" text NOT NULL, "photo" varchar(255) NULL, "status" varchar(15) NOT NULL, "due_date" timestamp with time zone NOT NULL, "hours_to_complete" numeric(5, 2) NOT NULL, "created_at" timestamp with time zone NOT NULL, "updated_at" timestamp with time zone NOT NULL, "is_public" boolean NOT NULL, "coordinator_id" bigint NULL); args=None; alias=default
+CREATE TABLE "volonteer_task_assigned_volunteers" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "task_id" bigint NOT NULL, "user_id" bigint NOT NULL); (params None)
+(0.257) CREATE TABLE "volonteer_task_assigned_volunteers" ("id" bigint NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "task_id" bigint NOT NULL, "user_id" bigint NOT NULL); args=None; alias=default
+CREATE INDEX "volonteer_user_username_5f56017f_like" ON "volonteer_user" ("username" varchar_pattern_ops); (params None)
+(0.261) CREATE INDEX "volonteer_user_username_5f56017f_like" ON "volonteer_user" ("username" varchar_pattern_ops); args=None; alias=default
+ALTER TABLE "volonteer_user_groups" ADD CONSTRAINT "volonteer_user_groups_user_id_group_id_14c27e47_uniq" UNIQUE ("user_id", "group_id"); (params None)
+(0.346) ALTER TABLE "volonteer_user_groups" ADD CONSTRAINT "volonteer_user_groups_user_id_group_id_14c27e47_uniq" UNIQUE ("user_id", "group_id"); args=None; alias=default
+ALTER TABLE "volonteer_user_groups" ADD CONSTRAINT "volonteer_user_groups_user_id_188ed40b_fk_volonteer_user_id" FOREIGN KEY ("user_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.272) ALTER TABLE "volonteer_user_groups" ADD CONSTRAINT "volonteer_user_groups_user_id_188ed40b_fk_volonteer_user_id" FOREIGN KEY ("user_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+ALTER TABLE "volonteer_user_groups" ADD CONSTRAINT "volonteer_user_groups_group_id_72b048a3_fk_auth_group_id" FOREIGN KEY ("group_id") REFERENCES "auth_group" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.268) ALTER TABLE "volonteer_user_groups" ADD CONSTRAINT "volonteer_user_groups_group_id_72b048a3_fk_auth_group_id" FOREIGN KEY ("group_id") REFERENCES "auth_group" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+CREATE INDEX "volonteer_user_groups_user_id_188ed40b" ON "volonteer_user_groups" ("user_id"); (params None)
+(0.301) CREATE INDEX "volonteer_user_groups_user_id_188ed40b" ON "volonteer_user_groups" ("user_id"); args=None; alias=default
+CREATE INDEX "volonteer_user_groups_group_id_72b048a3" ON "volonteer_user_groups" ("group_id"); (params None)
+(0.286) CREATE INDEX "volonteer_user_groups_group_id_72b048a3" ON "volonteer_user_groups" ("group_id"); args=None; alias=default
+ALTER TABLE "volonteer_user_user_permissions" ADD CONSTRAINT "volonteer_user_user_perm_user_id_permission_id_0a04ca8b_uniq" UNIQUE ("user_id", "permission_id"); (params None)
+(0.278) ALTER TABLE "volonteer_user_user_permissions" ADD CONSTRAINT "volonteer_user_user_perm_user_id_permission_id_0a04ca8b_uniq" UNIQUE ("user_id", "permission_id"); args=None; alias=default
+ALTER TABLE "volonteer_user_user_permissions" ADD CONSTRAINT "volonteer_user_user__user_id_318ad250_fk_volonteer" FOREIGN KEY ("user_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.278) ALTER TABLE "volonteer_user_user_permissions" ADD CONSTRAINT "volonteer_user_user__user_id_318ad250_fk_volonteer" FOREIGN KEY ("user_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+ALTER TABLE "volonteer_user_user_permissions" ADD CONSTRAINT "volonteer_user_user__permission_id_326701a7_fk_auth_perm" FOREIGN KEY ("permission_id") REFERENCES "auth_permission" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.263) ALTER TABLE "volonteer_user_user_permissions" ADD CONSTRAINT "volonteer_user_user__permission_id_326701a7_fk_auth_perm" FOREIGN KEY ("permission_id") REFERENCES "auth_permission" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+CREATE INDEX "volonteer_user_user_permissions_user_id_318ad250" ON "volonteer_user_user_permissions" ("user_id"); (params None)
+(0.279) CREATE INDEX "volonteer_user_user_permissions_user_id_318ad250" ON "volonteer_user_user_permissions" ("user_id"); args=None; alias=default
+CREATE INDEX "volonteer_user_user_permissions_permission_id_326701a7" ON "volonteer_user_user_permissions" ("permission_id"); (params None)
+(0.271) CREATE INDEX "volonteer_user_user_permissions_permission_id_326701a7" ON "volonteer_user_user_permissions" ("permission_id"); args=None; alias=default
+ALTER TABLE "volonteer_achievement_users" ADD CONSTRAINT "volonteer_achievement_us_achievement_id_user_id_3b7980f9_uniq" UNIQUE ("achievement_id", "user_id"); (params None)
+(0.267) ALTER TABLE "volonteer_achievement_users" ADD CONSTRAINT "volonteer_achievement_us_achievement_id_user_id_3b7980f9_uniq" UNIQUE ("achievement_id", "user_id"); args=None; alias=default
+ALTER TABLE "volonteer_achievement_users" ADD CONSTRAINT "volonteer_achievemen_achievement_id_1e4f49c2_fk_volonteer" FOREIGN KEY ("achievement_id") REFERENCES "volonteer_achievement" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.310) ALTER TABLE "volonteer_achievement_users" ADD CONSTRAINT "volonteer_achievemen_achievement_id_1e4f49c2_fk_volonteer" FOREIGN KEY ("achievement_id") REFERENCES "volonteer_achievement" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+ALTER TABLE "volonteer_achievement_users" ADD CONSTRAINT "volonteer_achievemen_user_id_673637e0_fk_volonteer" FOREIGN KEY ("user_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.287) ALTER TABLE "volonteer_achievement_users" ADD CONSTRAINT "volonteer_achievemen_user_id_673637e0_fk_volonteer" FOREIGN KEY ("user_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+CREATE INDEX "volonteer_achievement_users_achievement_id_1e4f49c2" ON "volonteer_achievement_users" ("achievement_id"); (params None)
+(0.372) CREATE INDEX "volonteer_achievement_users_achievement_id_1e4f49c2" ON "volonteer_achievement_users" ("achievement_id"); args=None; alias=default
+CREATE INDEX "volonteer_achievement_users_user_id_673637e0" ON "volonteer_achievement_users" ("user_id"); (params None)
+(0.279) CREATE INDEX "volonteer_achievement_users_user_id_673637e0" ON "volonteer_achievement_users" ("user_id"); args=None; alias=default
+ALTER TABLE "volonteer_user_achievements" ADD CONSTRAINT "volonteer_user_achieveme_user_id_achievement_id_d7183237_uniq" UNIQUE ("user_id", "achievement_id"); (params None)
+(0.479) ALTER TABLE "volonteer_user_achievements" ADD CONSTRAINT "volonteer_user_achieveme_user_id_achievement_id_d7183237_uniq" UNIQUE ("user_id", "achievement_id"); args=None; alias=default
+ALTER TABLE "volonteer_user_achievements" ADD CONSTRAINT "volonteer_user_achie_user_id_b5477abe_fk_volonteer" FOREIGN KEY ("user_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.379) ALTER TABLE "volonteer_user_achievements" ADD CONSTRAINT "volonteer_user_achie_user_id_b5477abe_fk_volonteer" FOREIGN KEY ("user_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+ALTER TABLE "volonteer_user_achievements" ADD CONSTRAINT "volonteer_user_achie_achievement_id_f6e279eb_fk_volonteer" FOREIGN KEY ("achievement_id") REFERENCES "volonteer_achievement" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.379) ALTER TABLE "volonteer_user_achievements" ADD CONSTRAINT "volonteer_user_achie_achievement_id_f6e279eb_fk_volonteer" FOREIGN KEY ("achievement_id") REFERENCES "volonteer_achievement" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+CREATE INDEX "volonteer_user_achievements_user_id_b5477abe" ON "volonteer_user_achievements" ("user_id"); (params None)
+(0.379) CREATE INDEX "volonteer_user_achievements_user_id_b5477abe" ON "volonteer_user_achievements" ("user_id"); args=None; alias=default
+CREATE INDEX "volonteer_user_achievements_achievement_id_f6e279eb" ON "volonteer_user_achievements" ("achievement_id"); (params None)
+(0.379) CREATE INDEX "volonteer_user_achievements_achievement_id_f6e279eb" ON "volonteer_user_achievements" ("achievement_id"); args=None; alias=default
+ALTER TABLE "volonteer_event" ADD CONSTRAINT "volonteer_event_coordinator_id_c5633e56_fk_volonteer_user_id" FOREIGN KEY ("coordinator_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.379) ALTER TABLE "volonteer_event" ADD CONSTRAINT "volonteer_event_coordinator_id_c5633e56_fk_volonteer_user_id" FOREIGN KEY ("coordinator_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+CREATE INDEX "volonteer_event_coordinator_id_c5633e56" ON "volonteer_event" ("coordinator_id"); (params None)
+(0.279) CREATE INDEX "volonteer_event_coordinator_id_c5633e56" ON "volonteer_event" ("coordinator_id"); args=None; alias=default
+ALTER TABLE "volonteer_event_registered_volunteers" ADD CONSTRAINT "volonteer_event_register_event_id_user_id_07898090_uniq" UNIQUE ("event_id", "user_id"); (params None)
+(0.488) ALTER TABLE "volonteer_event_registered_volunteers" ADD CONSTRAINT "volonteer_event_register_event_id_user_id_07898090_uniq" UNIQUE ("event_id", "user_id"); args=None; alias=default
+ALTER TABLE "volonteer_event_registered_volunteers" ADD CONSTRAINT "volonteer_event_regi_event_id_643bca10_fk_volonteer" FOREIGN KEY ("event_id") REFERENCES "volonteer_event" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.382) ALTER TABLE "volonteer_event_registered_volunteers" ADD CONSTRAINT "volonteer_event_regi_event_id_643bca10_fk_volonteer" FOREIGN KEY ("event_id") REFERENCES "volonteer_event" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+ALTER TABLE "volonteer_event_registered_volunteers" ADD CONSTRAINT "volonteer_event_regi_user_id_df156735_fk_volonteer" FOREIGN KEY ("user_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.371) ALTER TABLE "volonteer_event_registered_volunteers" ADD CONSTRAINT "volonteer_event_regi_user_id_df156735_fk_volonteer" FOREIGN KEY ("user_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+CREATE INDEX "volonteer_event_registered_volunteers_event_id_643bca10" ON "volonteer_event_registered_volunteers" ("event_id"); (params None)
+(0.377) CREATE INDEX "volonteer_event_registered_volunteers_event_id_643bca10" ON "volonteer_event_registered_volunteers" ("event_id"); args=None; alias=default
+CREATE INDEX "volonteer_event_registered_volunteers_user_id_df156735" ON "volonteer_event_registered_volunteers" ("user_id"); (params None)
+(0.297) CREATE INDEX "volonteer_event_registered_volunteers_user_id_df156735" ON "volonteer_event_registered_volunteers" ("user_id"); args=None; alias=default
+ALTER TABLE "volonteer_leaderboard" ADD CONSTRAINT "volonteer_leaderboard_user_id_d9c0732b_fk_volonteer_user_id" FOREIGN KEY ("user_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.279) ALTER TABLE "volonteer_leaderboard" ADD CONSTRAINT "volonteer_leaderboard_user_id_d9c0732b_fk_volonteer_user_id" FOREIGN KEY ("user_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+ALTER TABLE "volonteer_task" ADD CONSTRAINT "volonteer_task_coordinator_id_e118e637_fk_volonteer_user_id" FOREIGN KEY ("coordinator_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.282) ALTER TABLE "volonteer_task" ADD CONSTRAINT "volonteer_task_coordinator_id_e118e637_fk_volonteer_user_id" FOREIGN KEY ("coordinator_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+CREATE INDEX "volonteer_task_coordinator_id_e118e637" ON "volonteer_task" ("coordinator_id"); (params None)
+(0.361) CREATE INDEX "volonteer_task_coordinator_id_e118e637" ON "volonteer_task" ("coordinator_id"); args=None; alias=default
+ALTER TABLE "volonteer_task_assigned_volunteers" ADD CONSTRAINT "volonteer_task_assigned__task_id_user_id_e82e3568_uniq" UNIQUE ("task_id", "user_id"); (params None)
+(0.287) ALTER TABLE "volonteer_task_assigned_volunteers" ADD CONSTRAINT "volonteer_task_assigned__task_id_user_id_e82e3568_uniq" UNIQUE ("task_id", "user_id"); args=None; alias=default
+ALTER TABLE "volonteer_task_assigned_volunteers" ADD CONSTRAINT "volonteer_task_assig_task_id_2289cafd_fk_volonteer" FOREIGN KEY ("task_id") REFERENCES "volonteer_task" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.365) ALTER TABLE "volonteer_task_assigned_volunteers" ADD CONSTRAINT "volonteer_task_assig_task_id_2289cafd_fk_volonteer" FOREIGN KEY ("task_id") REFERENCES "volonteer_task" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+ALTER TABLE "volonteer_task_assigned_volunteers" ADD CONSTRAINT "volonteer_task_assig_user_id_6bcdf29e_fk_volonteer" FOREIGN KEY ("user_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.270) ALTER TABLE "volonteer_task_assigned_volunteers" ADD CONSTRAINT "volonteer_task_assig_user_id_6bcdf29e_fk_volonteer" FOREIGN KEY ("user_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+CREATE INDEX "volonteer_task_assigned_volunteers_task_id_2289cafd" ON "volonteer_task_assigned_volunteers" ("task_id"); (params None)
+(0.274) CREATE INDEX "volonteer_task_assigned_volunteers_task_id_2289cafd" ON "volonteer_task_assigned_volunteers" ("task_id"); args=None; alias=default
+CREATE INDEX "volonteer_task_assigned_volunteers_user_id_6bcdf29e" ON "volonteer_task_assigned_volunteers" ("user_id"); (params None)
+(0.281) CREATE INDEX "volonteer_task_assigned_volunteers_user_id_6bcdf29e" ON "volonteer_task_assigned_volunteers" ("user_id"); args=None; alias=default
+(0.312) COMMIT; args=None; alias=default
+(0.379) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('volonteer', '0001_initial', '2025-01-20T08:25:27.082377+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('volonteer', '0001_initial', datetime.datetime(2025, 1, 20, 8, 25, 27, 82377, tzinfo=datetime.timezone.utc)); alias=default
+(0.000) BEGIN; args=None; alias=default
+CREATE TABLE "django_admin_log" ("id" integer NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "action_time" timestamp with time zone NOT NULL, "object_id" text NULL, "object_repr" varchar(200) NOT NULL, "action_flag" smallint NOT NULL CHECK ("action_flag" >= 0), "change_message" text NOT NULL, "content_type_id" integer NULL, "user_id" bigint NOT NULL); (params None)
+(0.725) CREATE TABLE "django_admin_log" ("id" integer NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "action_time" timestamp with time zone NOT NULL, "object_id" text NULL, "object_repr" varchar(200) NOT NULL, "action_flag" smallint NOT NULL CHECK ("action_flag" >= 0), "change_message" text NOT NULL, "content_type_id" integer NULL, "user_id" bigint NOT NULL); args=None; alias=default
+ALTER TABLE "django_admin_log" ADD CONSTRAINT "django_admin_log_content_type_id_c4bce8eb_fk_django_co" FOREIGN KEY ("content_type_id") REFERENCES "django_content_type" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.270) ALTER TABLE "django_admin_log" ADD CONSTRAINT "django_admin_log_content_type_id_c4bce8eb_fk_django_co" FOREIGN KEY ("content_type_id") REFERENCES "django_content_type" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+ALTER TABLE "django_admin_log" ADD CONSTRAINT "django_admin_log_user_id_c564eba6_fk_volonteer_user_id" FOREIGN KEY ("user_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.275) ALTER TABLE "django_admin_log" ADD CONSTRAINT "django_admin_log_user_id_c564eba6_fk_volonteer_user_id" FOREIGN KEY ("user_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+CREATE INDEX "django_admin_log_content_type_id_c4bce8eb" ON "django_admin_log" ("content_type_id"); (params None)
+(0.262) CREATE INDEX "django_admin_log_content_type_id_c4bce8eb" ON "django_admin_log" ("content_type_id"); args=None; alias=default
+CREATE INDEX "django_admin_log_user_id_c564eba6" ON "django_admin_log" ("user_id"); (params None)
+(0.329) CREATE INDEX "django_admin_log_user_id_c564eba6" ON "django_admin_log" ("user_id"); args=None; alias=default
+(0.269) COMMIT; args=None; alias=default
+(0.287) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('admin', '0001_initial', '2025-01-20T08:25:29.634046+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('admin', '0001_initial', datetime.datetime(2025, 1, 20, 8, 25, 29, 634046, tzinfo=datetime.timezone.utc)); alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.551) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('admin', '0002_logentry_remove_auto_add', '2025-01-20T08:25:29.959139+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('admin', '0002_logentry_remove_auto_add', datetime.datetime(2025, 1, 20, 8, 25, 29, 959139, tzinfo=datetime.timezone.utc)); alias=default
+(0.269) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.620) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('admin', '0003_logentry_add_action_flag_choices', '2025-01-20T08:25:30.809823+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('admin', '0003_logentry_add_action_flag_choices', datetime.datetime(2025, 1, 20, 8, 25, 30, 809823, tzinfo=datetime.timezone.utc)); alias=default
+(0.258) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+CREATE TABLE "authtoken_token" ("key" varchar(40) NOT NULL PRIMARY KEY, "created" timestamp with time zone NOT NULL, "user_id" bigint NOT NULL UNIQUE); (params None)
+(0.554) CREATE TABLE "authtoken_token" ("key" varchar(40) NOT NULL PRIMARY KEY, "created" timestamp with time zone NOT NULL, "user_id" bigint NOT NULL UNIQUE); args=None; alias=default
+ALTER TABLE "authtoken_token" ADD CONSTRAINT "authtoken_token_user_id_35299eff_fk_volonteer_user_id" FOREIGN KEY ("user_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.272) ALTER TABLE "authtoken_token" ADD CONSTRAINT "authtoken_token_user_id_35299eff_fk_volonteer_user_id" FOREIGN KEY ("user_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+CREATE INDEX "authtoken_token_key_10f0b77e_like" ON "authtoken_token" ("key" varchar_pattern_ops); (params None)
+(0.276) CREATE INDEX "authtoken_token_key_10f0b77e_like" ON "authtoken_token" ("key" varchar_pattern_ops); args=None; alias=default
+(0.316) COMMIT; args=None; alias=default
+(0.382) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('authtoken', '0001_initial', '2025-01-20T08:25:33.150004+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('authtoken', '0001_initial', datetime.datetime(2025, 1, 20, 8, 25, 33, 150004, tzinfo=datetime.timezone.utc)); alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.657) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('authtoken', '0002_auto_20160226_1747', '2025-01-20T08:25:33.625619+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('authtoken', '0002_auto_20160226_1747', datetime.datetime(2025, 1, 20, 8, 25, 33, 625619, tzinfo=datetime.timezone.utc)); alias=default
+(0.268) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.578) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('authtoken', '0003_tokenproxy', '2025-01-20T08:25:34.552809+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('authtoken', '0003_tokenproxy', datetime.datetime(2025, 1, 20, 8, 25, 34, 552809, tzinfo=datetime.timezone.utc)); alias=default
+(0.255) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.504) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('authtoken', '0004_alter_tokenproxy_options', '2025-01-20T08:25:35.398650+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('authtoken', '0004_alter_tokenproxy_options', datetime.datetime(2025, 1, 20, 8, 25, 35, 398650, tzinfo=datetime.timezone.utc)); alias=default
+(0.278) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+CREATE TABLE "django_session" ("session_key" varchar(40) NOT NULL PRIMARY KEY, "session_data" text NOT NULL, "expire_date" timestamp with time zone NOT NULL); (params None)
+(0.548) CREATE TABLE "django_session" ("session_key" varchar(40) NOT NULL PRIMARY KEY, "session_data" text NOT NULL, "expire_date" timestamp with time zone NOT NULL); args=None; alias=default
+CREATE INDEX "django_session_session_key_c0390e0f_like" ON "django_session" ("session_key" varchar_pattern_ops); (params None)
+(0.281) CREATE INDEX "django_session_session_key_c0390e0f_like" ON "django_session" ("session_key" varchar_pattern_ops); args=None; alias=default
+CREATE INDEX "django_session_expire_date_a5c62663" ON "django_session" ("expire_date"); (params None)
+(0.274) CREATE INDEX "django_session_expire_date_a5c62663" ON "django_session" ("expire_date"); args=None; alias=default
+(0.465) COMMIT; args=None; alias=default
+(0.280) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('sessions', '0001_initial', '2025-01-20T08:25:37.757815+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('sessions', '0001_initial', datetime.datetime(2025, 1, 20, 8, 25, 37, 757815, tzinfo=datetime.timezone.utc)); alias=default
+(0.000) BEGIN; args=None; alias=default
+CREATE TABLE "token_blacklist_blacklistedtoken" ("id" integer NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "blacklisted_at" timestamp with time zone NOT NULL); (params None)
+(0.552) CREATE TABLE "token_blacklist_blacklistedtoken" ("id" integer NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "blacklisted_at" timestamp with time zone NOT NULL); args=None; alias=default
+CREATE TABLE "token_blacklist_outstandingtoken" ("id" integer NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "jti" uuid NOT NULL UNIQUE, "token" text NOT NULL, "created_at" timestamp with time zone NOT NULL, "expires_at" timestamp with time zone NOT NULL, "user_id" bigint NOT NULL); (params None)
+(0.266) CREATE TABLE "token_blacklist_outstandingtoken" ("id" integer NOT NULL PRIMARY KEY GENERATED BY DEFAULT AS IDENTITY, "jti" uuid NOT NULL UNIQUE, "token" text NOT NULL, "created_at" timestamp with time zone NOT NULL, "expires_at" timestamp with time zone NOT NULL, "user_id" bigint NOT NULL); args=None; alias=default
+ALTER TABLE "token_blacklist_blacklistedtoken" ADD COLUMN "token_id" integer NOT NULL UNIQUE CONSTRAINT "token_blacklist_blac_token_id_3cc7fe56_fk_token_bla" REFERENCES "token_blacklist_outstandingtoken"("id") DEFERRABLE INITIALLY DEFERRED; SET CONSTRAINTS "token_blacklist_blac_token_id_3cc7fe56_fk_token_bla" IMMEDIATE; (params None)
+(0.283) ALTER TABLE "token_blacklist_blacklistedtoken" ADD COLUMN "token_id" integer NOT NULL UNIQUE CONSTRAINT "token_blacklist_blac_token_id_3cc7fe56_fk_token_bla" REFERENCES "token_blacklist_outstandingtoken"("id") DEFERRABLE INITIALLY DEFERRED; SET CONSTRAINTS "token_blacklist_blac_token_id_3cc7fe56_fk_token_bla" IMMEDIATE; args=None; alias=default
+ALTER TABLE "token_blacklist_outstandingtoken" ADD CONSTRAINT "token_blacklist_outs_user_id_83bc629a_fk_volonteer" FOREIGN KEY ("user_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.336) ALTER TABLE "token_blacklist_outstandingtoken" ADD CONSTRAINT "token_blacklist_outs_user_id_83bc629a_fk_volonteer" FOREIGN KEY ("user_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+CREATE INDEX "token_blacklist_outstandingtoken_user_id_83bc629a" ON "token_blacklist_outstandingtoken" ("user_id"); (params None)
+(0.384) CREATE INDEX "token_blacklist_outstandingtoken_user_id_83bc629a" ON "token_blacklist_outstandingtoken" ("user_id"); args=None; alias=default
+(0.378) COMMIT; args=None; alias=default
+(0.377) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('token_blacklist', '0001_initial', '2025-01-20T08:25:40.317614+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('token_blacklist', '0001_initial', datetime.datetime(2025, 1, 20, 8, 25, 40, 317614, tzinfo=datetime.timezone.utc)); alias=default
+(0.000) BEGIN; args=None; alias=default
+ALTER TABLE "token_blacklist_outstandingtoken" ADD COLUMN "jti_hex" varchar(255) NULL; (params None)
+(0.707) ALTER TABLE "token_blacklist_outstandingtoken" ADD COLUMN "jti_hex" varchar(255) NULL; args=None; alias=default
+(0.377) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('token_blacklist', '0002_outstandingtoken_jti_hex', '2025-01-20T08:25:41.454977+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('token_blacklist', '0002_outstandingtoken_jti_hex', datetime.datetime(2025, 1, 20, 8, 25, 41, 454977, tzinfo=datetime.timezone.utc)); alias=default
+(0.373) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.728) SELECT "token_blacklist_outstandingtoken"."id", "token_blacklist_outstandingtoken"."jti", "token_blacklist_outstandingtoken"."token", "token_blacklist_outstandingtoken"."created_at", "token_blacklist_outstandingtoken"."expires_at", "token_blacklist_outstandingtoken"."user_id", "token_blacklist_outstandingtoken"."jti_hex" FROM "token_blacklist_outstandingtoken" ORDER BY "token_blacklist_outstandingtoken"."user_id" ASC; args=(); alias=default
+(0.370) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('token_blacklist', '0003_auto_20171017_2007', '2025-01-20T08:25:42.974096+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('token_blacklist', '0003_auto_20171017_2007', datetime.datetime(2025, 1, 20, 8, 25, 42, 974096, tzinfo=datetime.timezone.utc)); alias=default
+(0.261) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+ALTER TABLE "token_blacklist_outstandingtoken" ALTER COLUMN "jti_hex" SET NOT NULL; (params None)
+(0.616) ALTER TABLE "token_blacklist_outstandingtoken" ALTER COLUMN "jti_hex" SET NOT NULL; args=None; alias=default
+ALTER TABLE "token_blacklist_outstandingtoken" ADD CONSTRAINT "token_blacklist_outstandingtoken_jti_hex_d9bdf6f7_uniq" UNIQUE ("jti_hex"); (params None)
+(0.277) ALTER TABLE "token_blacklist_outstandingtoken" ADD CONSTRAINT "token_blacklist_outstandingtoken_jti_hex_d9bdf6f7_uniq" UNIQUE ("jti_hex"); args=None; alias=default
+CREATE INDEX "token_blacklist_outstandingtoken_jti_hex_d9bdf6f7_like" ON "token_blacklist_outstandingtoken" ("jti_hex" varchar_pattern_ops); (params None)
+(0.277) CREATE INDEX "token_blacklist_outstandingtoken_jti_hex_d9bdf6f7_like" ON "token_blacklist_outstandingtoken" ("jti_hex" varchar_pattern_ops); args=None; alias=default
+(0.287) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('token_blacklist', '0004_auto_20171017_2013', '2025-01-20T08:25:44.814832+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('token_blacklist', '0004_auto_20171017_2013', datetime.datetime(2025, 1, 20, 8, 25, 44, 814832, tzinfo=datetime.timezone.utc)); alias=default
+(0.255) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+ALTER TABLE "token_blacklist_outstandingtoken" DROP COLUMN "jti" CASCADE; (params None)
+(0.532) ALTER TABLE "token_blacklist_outstandingtoken" DROP COLUMN "jti" CASCADE; args=None; alias=default
+(0.276) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('token_blacklist', '0005_remove_outstandingtoken_jti', '2025-01-20T08:25:45.911319+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('token_blacklist', '0005_remove_outstandingtoken_jti', datetime.datetime(2025, 1, 20, 8, 25, 45, 911319, tzinfo=datetime.timezone.utc)); alias=default
+(0.275) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+ALTER TABLE "token_blacklist_outstandingtoken" RENAME COLUMN "jti_hex" TO "jti"; (params None)
+(0.518) ALTER TABLE "token_blacklist_outstandingtoken" RENAME COLUMN "jti_hex" TO "jti"; args=None; alias=default
+(0.264) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('token_blacklist', '0006_auto_20171017_2113', '2025-01-20T08:25:47.015014+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('token_blacklist', '0006_auto_20171017_2113', datetime.datetime(2025, 1, 20, 8, 25, 47, 15014, tzinfo=datetime.timezone.utc)); alias=default
+(0.271) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+ALTER TABLE "token_blacklist_outstandingtoken" ALTER COLUMN "created_at" DROP NOT NULL; (params None)
+(0.564) ALTER TABLE "token_blacklist_outstandingtoken" ALTER COLUMN "created_at" DROP NOT NULL; args=None; alias=default
+(0.280) 
+            SELECT
+                c.conname,
+                array(
+                    SELECT attname
+                    FROM unnest(c.conkey) WITH ORDINALITY cols(colid, arridx)
+                    JOIN pg_attribute AS ca ON cols.colid = ca.attnum
+                    WHERE ca.attrelid = c.conrelid
+                    ORDER BY cols.arridx
+                ),
+                c.contype,
+                (SELECT fkc.relname || '.' || fka.attname
+                FROM pg_attribute AS fka
+                JOIN pg_class AS fkc ON fka.attrelid = fkc.oid
+                WHERE fka.attrelid = c.confrelid AND fka.attnum = c.confkey[1]),
+                cl.reloptions
+            FROM pg_constraint AS c
+            JOIN pg_class AS cl ON c.conrelid = cl.oid
+            WHERE cl.relname = 'token_blacklist_outstandingtoken' AND pg_catalog.pg_table_is_visible(cl.oid)
+        ; args=['token_blacklist_outstandingtoken']; alias=default
+(0.278) 
+            SELECT
+                indexname,
+                array_agg(attname ORDER BY arridx),
+                indisunique,
+                indisprimary,
+                array_agg(ordering ORDER BY arridx),
+                amname,
+                exprdef,
+                s2.attoptions
+            FROM (
+                SELECT
+                    c2.relname as indexname, idx.*, attr.attname, am.amname,
+                    CASE
+                        WHEN idx.indexprs IS NOT NULL THEN
+                            pg_get_indexdef(idx.indexrelid)
+                    END AS exprdef,
+                    CASE am.amname
+                        WHEN 'btree' THEN
+                            CASE (option & 1)
+                                WHEN 1 THEN 'DESC' ELSE 'ASC'
+                            END
+                    END as ordering,
+                    c2.reloptions as attoptions
+                FROM (
+                    SELECT *
+                    FROM
+                        pg_index i,
+                        unnest(i.indkey, i.indoption)
+                            WITH ORDINALITY koi(key, option, arridx)
+                ) idx
+                LEFT JOIN pg_class c ON idx.indrelid = c.oid
+                LEFT JOIN pg_class c2 ON idx.indexrelid = c2.oid
+                LEFT JOIN pg_am am ON c2.relam = am.oid
+                LEFT JOIN
+                    pg_attribute attr ON attr.attrelid = c.oid AND attr.attnum = idx.key
+                WHERE c.relname = 'token_blacklist_outstandingtoken' AND pg_catalog.pg_table_is_visible(c.oid)
+            ) s2
+            GROUP BY indexname, indisunique, indisprimary, amname, exprdef, attoptions;
+        ; args=['btree', 'token_blacklist_outstandingtoken']; alias=default
+SET CONSTRAINTS "token_blacklist_outs_user_id_83bc629a_fk_volonteer" IMMEDIATE; ALTER TABLE "token_blacklist_outstandingtoken" DROP CONSTRAINT "token_blacklist_outs_user_id_83bc629a_fk_volonteer"; (params None)
+(0.283) SET CONSTRAINTS "token_blacklist_outs_user_id_83bc629a_fk_volonteer" IMMEDIATE; ALTER TABLE "token_blacklist_outstandingtoken" DROP CONSTRAINT "token_blacklist_outs_user_id_83bc629a_fk_volonteer"; args=None; alias=default
+ALTER TABLE "token_blacklist_outstandingtoken" ALTER COLUMN "user_id" DROP NOT NULL; (params None)
+(0.265) ALTER TABLE "token_blacklist_outstandingtoken" ALTER COLUMN "user_id" DROP NOT NULL; args=None; alias=default
+ALTER TABLE "token_blacklist_outstandingtoken" ADD CONSTRAINT "token_blacklist_outs_user_id_83bc629a_fk_volonteer" FOREIGN KEY ("user_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.286) ALTER TABLE "token_blacklist_outstandingtoken" ADD CONSTRAINT "token_blacklist_outs_user_id_83bc629a_fk_volonteer" FOREIGN KEY ("user_id") REFERENCES "volonteer_user" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+(0.291) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('token_blacklist', '0007_auto_20171017_2214', '2025-01-20T08:25:49.581861+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('token_blacklist', '0007_auto_20171017_2214', datetime.datetime(2025, 1, 20, 8, 25, 49, 581861, tzinfo=datetime.timezone.utc)); alias=default
+(0.277) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.585) 
+            SELECT
+                s.relname AS sequence_name,
+                a.attname AS colname
+            FROM
+                pg_class s
+                JOIN pg_depend d ON d.objid = s.oid
+                    AND d.classid = 'pg_class'::regclass
+                    AND d.refclassid = 'pg_class'::regclass
+                JOIN pg_attribute a ON d.refobjid = a.attrelid
+                    AND d.refobjsubid = a.attnum
+                JOIN pg_class tbl ON tbl.oid = d.refobjid
+                    AND tbl.relname = 'token_blacklist_blacklistedtoken'
+                    AND pg_catalog.pg_table_is_visible(tbl.oid)
+            WHERE
+                s.relkind = 'S';
+        ; args=['token_blacklist_blacklistedtoken']; alias=default
+ALTER TABLE "token_blacklist_blacklistedtoken" ALTER COLUMN "id" TYPE bigint USING "id"::bigint; (params None)
+(0.494) ALTER TABLE "token_blacklist_blacklistedtoken" ALTER COLUMN "id" TYPE bigint USING "id"::bigint; args=None; alias=default
+ALTER SEQUENCE IF EXISTS "token_blacklist_blacklistedtoken_id_seq" AS bigint; (params None)
+(0.262) ALTER SEQUENCE IF EXISTS "token_blacklist_blacklistedtoken_id_seq" AS bigint; args=None; alias=default
+(0.370) 
+            SELECT
+                c.conname,
+                array(
+                    SELECT attname
+                    FROM unnest(c.conkey) WITH ORDINALITY cols(colid, arridx)
+                    JOIN pg_attribute AS ca ON cols.colid = ca.attnum
+                    WHERE ca.attrelid = c.conrelid
+                    ORDER BY cols.arridx
+                ),
+                c.contype,
+                (SELECT fkc.relname || '.' || fka.attname
+                FROM pg_attribute AS fka
+                JOIN pg_class AS fkc ON fka.attrelid = fkc.oid
+                WHERE fka.attrelid = c.confrelid AND fka.attnum = c.confkey[1]),
+                cl.reloptions
+            FROM pg_constraint AS c
+            JOIN pg_class AS cl ON c.conrelid = cl.oid
+            WHERE cl.relname = 'token_blacklist_blacklistedtoken' AND pg_catalog.pg_table_is_visible(cl.oid)
+        ; args=['token_blacklist_blacklistedtoken']; alias=default
+(0.272) 
+            SELECT
+                indexname,
+                array_agg(attname ORDER BY arridx),
+                indisunique,
+                indisprimary,
+                array_agg(ordering ORDER BY arridx),
+                amname,
+                exprdef,
+                s2.attoptions
+            FROM (
+                SELECT
+                    c2.relname as indexname, idx.*, attr.attname, am.amname,
+                    CASE
+                        WHEN idx.indexprs IS NOT NULL THEN
+                            pg_get_indexdef(idx.indexrelid)
+                    END AS exprdef,
+                    CASE am.amname
+                        WHEN 'btree' THEN
+                            CASE (option & 1)
+                                WHEN 1 THEN 'DESC' ELSE 'ASC'
+                            END
+                    END as ordering,
+                    c2.reloptions as attoptions
+                FROM (
+                    SELECT *
+                    FROM
+                        pg_index i,
+                        unnest(i.indkey, i.indoption)
+                            WITH ORDINALITY koi(key, option, arridx)
+                ) idx
+                LEFT JOIN pg_class c ON idx.indrelid = c.oid
+                LEFT JOIN pg_class c2 ON idx.indexrelid = c2.oid
+                LEFT JOIN pg_am am ON c2.relam = am.oid
+                LEFT JOIN
+                    pg_attribute attr ON attr.attrelid = c.oid AND attr.attnum = idx.key
+                WHERE c.relname = 'token_blacklist_blacklistedtoken' AND pg_catalog.pg_table_is_visible(c.oid)
+            ) s2
+            GROUP BY indexname, indisunique, indisprimary, amname, exprdef, attoptions;
+        ; args=['btree', 'token_blacklist_blacklistedtoken']; alias=default
+SET CONSTRAINTS "token_blacklist_blac_token_id_3cc7fe56_fk_token_bla" IMMEDIATE; ALTER TABLE "token_blacklist_blacklistedtoken" DROP CONSTRAINT "token_blacklist_blac_token_id_3cc7fe56_fk_token_bla"; (params None)
+(0.302) SET CONSTRAINTS "token_blacklist_blac_token_id_3cc7fe56_fk_token_bla" IMMEDIATE; ALTER TABLE "token_blacklist_blacklistedtoken" DROP CONSTRAINT "token_blacklist_blac_token_id_3cc7fe56_fk_token_bla"; args=None; alias=default
+(0.276) 
+            SELECT
+                s.relname AS sequence_name,
+                a.attname AS colname
+            FROM
+                pg_class s
+                JOIN pg_depend d ON d.objid = s.oid
+                    AND d.classid = 'pg_class'::regclass
+                    AND d.refclassid = 'pg_class'::regclass
+                JOIN pg_attribute a ON d.refobjid = a.attrelid
+                    AND d.refobjsubid = a.attnum
+                JOIN pg_class tbl ON tbl.oid = d.refobjid
+                    AND tbl.relname = 'token_blacklist_outstandingtoken'
+                    AND pg_catalog.pg_table_is_visible(tbl.oid)
+            WHERE
+                s.relkind = 'S';
+        ; args=['token_blacklist_outstandingtoken']; alias=default
+ALTER TABLE "token_blacklist_outstandingtoken" ALTER COLUMN "id" TYPE bigint USING "id"::bigint; (params None)
+(0.286) ALTER TABLE "token_blacklist_outstandingtoken" ALTER COLUMN "id" TYPE bigint USING "id"::bigint; args=None; alias=default
+ALTER SEQUENCE IF EXISTS "token_blacklist_outstandingtoken_id_seq" AS bigint; (params None)
+(0.263) ALTER SEQUENCE IF EXISTS "token_blacklist_outstandingtoken_id_seq" AS bigint; args=None; alias=default
+ALTER TABLE "token_blacklist_blacklistedtoken" ALTER COLUMN "token_id" TYPE bigint USING "token_id"::bigint; (params None)
+(0.270) ALTER TABLE "token_blacklist_blacklistedtoken" ALTER COLUMN "token_id" TYPE bigint USING "token_id"::bigint; args=None; alias=default
+ALTER TABLE "token_blacklist_blacklistedtoken" ADD CONSTRAINT "token_blacklist_blacklistedtoken_token_id_3cc7fe56_fk" FOREIGN KEY ("token_id") REFERENCES "token_blacklist_outstandingtoken" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.268) ALTER TABLE "token_blacklist_blacklistedtoken" ADD CONSTRAINT "token_blacklist_blacklistedtoken_token_id_3cc7fe56_fk" FOREIGN KEY ("token_id") REFERENCES "token_blacklist_outstandingtoken" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+(0.275) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('token_blacklist', '0008_migrate_to_bigautofield', '2025-01-20T08:25:53.912351+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('token_blacklist', '0008_migrate_to_bigautofield', datetime.datetime(2025, 1, 20, 8, 25, 53, 912351, tzinfo=datetime.timezone.utc)); alias=default
+(0.270) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.540) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('token_blacklist', '0010_fix_migrate_to_bigautofield', '2025-01-20T08:25:54.500387+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('token_blacklist', '0010_fix_migrate_to_bigautofield', datetime.datetime(2025, 1, 20, 8, 25, 54, 500387, tzinfo=datetime.timezone.utc)); alias=default
+(0.261) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.555) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('token_blacklist', '0011_linearizes_history', '2025-01-20T08:25:55.303573+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('token_blacklist', '0011_linearizes_history', datetime.datetime(2025, 1, 20, 8, 25, 55, 303573, tzinfo=datetime.timezone.utc)); alias=default
+(0.280) COMMIT; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.538) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('token_blacklist', '0012_alter_outstandingtoken_user', '2025-01-20T08:25:56.178041+00:00'::timestamptz) RETURNING "django_migrations"."id"; args=('token_blacklist', '0012_alter_outstandingtoken_user', datetime.datetime(2025, 1, 20, 8, 25, 56, 178041, tzinfo=datetime.timezone.utc)); alias=default
+(0.265) COMMIT; args=None; alias=default
+(0.277) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+(0.278) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'admin'; args=('admin',); alias=default
+(0.000) BEGIN; args=None; alias=default
+(1.005) INSERT INTO "django_content_type" ("app_label", "model") VALUES ('admin', 'logentry') RETURNING "django_content_type"."id"; args=('admin', 'logentry'); alias=default
+(0.276) COMMIT; args=None; alias=default
+(0.282) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'admin' AND "django_content_type"."model" IN ('logentry')); args=('admin', 'logentry'); alias=default
+(0.375) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (1) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(1,); alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.649) INSERT INTO "auth_permission" ("name", "content_type_id", "codename") VALUES ('Can add log entry', 1, 'add_logentry'), ('Can change log entry', 1, 'change_logentry'), ('Can delete log entry', 1, 'delete_logentry'), ('Can view log entry', 1, 'view_logentry') RETURNING "auth_permission"."id"; args=('Can add log entry', 1, 'add_logentry', 'Can change log entry', 1, 'change_logentry', 'Can delete log entry', 1, 'delete_logentry', 'Can view log entry', 1, 'view_logentry'); alias=default
+(0.254) COMMIT; args=None; alias=default
+(0.276) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'admin'; args=('admin',); alias=default
+(0.340) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'auth'; args=('auth',); alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.757) INSERT INTO "django_content_type" ("app_label", "model") VALUES ('auth', 'permission'), ('auth', 'group') RETURNING "django_content_type"."id"; args=('auth', 'permission', 'auth', 'group'); alias=default
+(0.374) COMMIT; args=None; alias=default
+(0.383) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'auth' AND "django_content_type"."model" IN ('group', 'permission')); args=('auth', 'group', 'permission'); alias=default
+(0.371) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (2, 3) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(2, 3); alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.542) INSERT INTO "auth_permission" ("name", "content_type_id", "codename") VALUES ('Can add permission', 2, 'add_permission'), ('Can change permission', 2, 'change_permission'), ('Can delete permission', 2, 'delete_permission'), ('Can view permission', 2, 'view_permission'), ('Can add group', 3, 'add_group'), ('Can change group', 3, 'change_group'), ('Can delete group', 3, 'delete_group'), ('Can view group', 3, 'view_group') RETURNING "auth_permission"."id"; args=('Can add permission', 2, 'add_permission', 'Can change permission', 2, 'change_permission', 'Can delete permission', 2, 'delete_permission', 'Can view permission', 2, 'view_permission', 'Can add group', 3, 'add_group', 'Can change group', 3, 'change_group', 'Can delete group', 3, 'delete_group', 'Can view group', 3, 'view_group'); alias=default
+(0.265) COMMIT; args=None; alias=default
+(0.328) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'auth'; args=('auth',); alias=default
+(0.277) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'contenttypes'; args=('contenttypes',); alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.638) INSERT INTO "django_content_type" ("app_label", "model") VALUES ('contenttypes', 'contenttype') RETURNING "django_content_type"."id"; args=('contenttypes', 'contenttype'); alias=default
+(0.252) COMMIT; args=None; alias=default
+(0.351) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'contenttypes' AND "django_content_type"."model" IN ('contenttype')); args=('contenttypes', 'contenttype'); alias=default
+(0.378) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (4) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(4,); alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.518) INSERT INTO "auth_permission" ("name", "content_type_id", "codename") VALUES ('Can add content type', 4, 'add_contenttype'), ('Can change content type', 4, 'change_contenttype'), ('Can delete content type', 4, 'delete_contenttype'), ('Can view content type', 4, 'view_contenttype') RETURNING "auth_permission"."id"; args=('Can add content type', 4, 'add_contenttype', 'Can change content type', 4, 'change_contenttype', 'Can delete content type', 4, 'delete_contenttype', 'Can view content type', 4, 'view_contenttype'); alias=default
+(0.258) COMMIT; args=None; alias=default
+(0.257) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'contenttypes'; args=('contenttypes',); alias=default
+(0.265) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'sessions'; args=('sessions',); alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.599) INSERT INTO "django_content_type" ("app_label", "model") VALUES ('sessions', 'session') RETURNING "django_content_type"."id"; args=('sessions', 'session'); alias=default
+(0.278) COMMIT; args=None; alias=default
+(0.379) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'sessions' AND "django_content_type"."model" IN ('session')); args=('sessions', 'session'); alias=default
+(0.376) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (5) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(5,); alias=default
+(0.000) BEGIN; args=None; alias=default
+(1.345) INSERT INTO "auth_permission" ("name", "content_type_id", "codename") VALUES ('Can add session', 5, 'add_session'), ('Can change session', 5, 'change_session'), ('Can delete session', 5, 'delete_session'), ('Can view session', 5, 'view_session') RETURNING "auth_permission"."id"; args=('Can add session', 5, 'add_session', 'Can change session', 5, 'change_session', 'Can delete session', 5, 'delete_session', 'Can view session', 5, 'view_session'); alias=default
+(0.278) COMMIT; args=None; alias=default
+(0.260) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'sessions'; args=('sessions',); alias=default
+(0.256) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'volonteer'; args=('volonteer',); alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.621) INSERT INTO "django_content_type" ("app_label", "model") VALUES ('volonteer', 'statistic'), ('volonteer', 'user'), ('volonteer', 'achievement'), ('volonteer', 'event'), ('volonteer', 'leaderboard'), ('volonteer', 'task') RETURNING "django_content_type"."id"; args=('volonteer', 'statistic', 'volonteer', 'user', 'volonteer', 'achievement', 'volonteer', 'event', 'volonteer', 'leaderboard', 'volonteer', 'task'); alias=default
+(0.380) COMMIT; args=None; alias=default
+(0.263) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'volonteer' AND "django_content_type"."model" IN ('task', 'achievement', 'statistic', 'event', 'user', 'leaderboard')); args=('volonteer', 'task', 'achievement', 'statistic', 'event', 'user', 'leaderboard'); alias=default
+(0.272) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (6, 7, 8, 9, 10, 11) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(6, 7, 8, 9, 10, 11); alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.609) INSERT INTO "auth_permission" ("name", "content_type_id", "codename") VALUES ('Can add statistic', 6, 'add_statistic'), ('Can change statistic', 6, 'change_statistic'), ('Can delete statistic', 6, 'delete_statistic'), ('Can view statistic', 6, 'view_statistic'), ('Can add user', 7, 'add_user'), ('Can change user', 7, 'change_user'), ('Can delete user', 7, 'delete_user'), ('Can view user', 7, 'view_user'), ('Can add achievement', 8, 'add_achievement'), ('Can change achievement', 8, 'change_achievement'), ('Can delete achievement', 8, 'delete_achievement'), ('Can view achievement', 8, 'view_achievement'), ('Can add event', 9, 'add_event'), ('Can change event', 9, 'change_event'), ('Can delete event', 9, 'delete_event'), ('Can view event', 9, 'view_event'), ('Can add leaderboard', 10, 'add_leaderboard'), ('Can change leaderboard', 10, 'change_leaderboard'), ('Can delete leaderboard', 10, 'delete_leaderboard'), ('Can view leaderboard', 10, 'view_leaderboard'), ('Can add task', 11, 'add_task'), ('Can change task', 11, 'change_task'), ('Can delete task', 11, 'delete_task'), ('Can view task', 11, 'view_task') RETURNING "auth_permission"."id"; args=('Can add statistic', 6, 'add_statistic', 'Can change statistic', 6, 'change_statistic', 'Can delete statistic', 6, 'delete_statistic', 'Can view statistic', 6, 'view_statistic', 'Can add user', 7, 'add_user', 'Can change user', 7, 'change_user', 'Can delete user', 7, 'delete_user', 'Can view user', 7, 'view_user', 'Can add achievement', 8, 'add_achievement', 'Can change achievement', 8, 'change_achievement', 'Can delete achievement', 8, 'delete_achievement', 'Can view achievement', 8, 'view_achievement', 'Can add event', 9, 'add_event', 'Can change event', 9, 'change_event', 'Can delete event', 9, 'delete_event', 'Can view event', 9, 'view_event', 'Can add leaderboard', 10, 'add_leaderboard', 'Can change leaderboard', 10, 'change_leaderboard', 'Can delete leaderboard', 10, 'delete_leaderboard', 'Can view leaderboard', 10, 'view_leaderboard', 'Can add task', 11, 'add_task', 'Can change task', 11, 'change_task', 'Can delete task', 11, 'delete_task', 'Can view task', 11, 'view_task'); alias=default
+(0.369) COMMIT; args=None; alias=default
+(0.271) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'volonteer'; args=('volonteer',); alias=default
+(0.274) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'authtoken'; args=('authtoken',); alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.591) INSERT INTO "django_content_type" ("app_label", "model") VALUES ('authtoken', 'token'), ('authtoken', 'tokenproxy') RETURNING "django_content_type"."id"; args=('authtoken', 'token', 'authtoken', 'tokenproxy'); alias=default
+(0.380) COMMIT; args=None; alias=default
+(0.270) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'authtoken' AND "django_content_type"."model" IN ('token', 'tokenproxy')); args=('authtoken', 'token', 'tokenproxy'); alias=default
+(0.279) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (12, 13) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(12, 13); alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.589) INSERT INTO "auth_permission" ("name", "content_type_id", "codename") VALUES ('Can add Token', 12, 'add_token'), ('Can change Token', 12, 'change_token'), ('Can delete Token', 12, 'delete_token'), ('Can view Token', 12, 'view_token'), ('Can add Token', 13, 'add_tokenproxy'), ('Can change Token', 13, 'change_tokenproxy'), ('Can delete Token', 13, 'delete_tokenproxy'), ('Can view Token', 13, 'view_tokenproxy') RETURNING "auth_permission"."id"; args=('Can add Token', 12, 'add_token', 'Can change Token', 12, 'change_token', 'Can delete Token', 12, 'delete_token', 'Can view Token', 12, 'view_token', 'Can add Token', 13, 'add_tokenproxy', 'Can change Token', 13, 'change_tokenproxy', 'Can delete Token', 13, 'delete_tokenproxy', 'Can view Token', 13, 'view_tokenproxy'); alias=default
+(0.376) COMMIT; args=None; alias=default
+(0.381) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'authtoken'; args=('authtoken',); alias=default
+(0.266) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'cloudinary'; args=('cloudinary',); alias=default
+(0.267) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'cloudinary'; args=('cloudinary',); alias=default
+(0.269) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'token_blacklist'; args=('token_blacklist',); alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.600) INSERT INTO "django_content_type" ("app_label", "model") VALUES ('token_blacklist', 'blacklistedtoken'), ('token_blacklist', 'outstandingtoken') RETURNING "django_content_type"."id"; args=('token_blacklist', 'blacklistedtoken', 'token_blacklist', 'outstandingtoken'); alias=default
+(0.273) COMMIT; args=None; alias=default
+(0.291) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'token_blacklist' AND "django_content_type"."model" IN ('blacklistedtoken', 'outstandingtoken')); args=('token_blacklist', 'blacklistedtoken', 'outstandingtoken'); alias=default
+(0.265) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (14, 15) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(14, 15); alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.552) INSERT INTO "auth_permission" ("name", "content_type_id", "codename") VALUES ('Can add blacklisted token', 14, 'add_blacklistedtoken'), ('Can change blacklisted token', 14, 'change_blacklistedtoken'), ('Can delete blacklisted token', 14, 'delete_blacklistedtoken'), ('Can view blacklisted token', 14, 'view_blacklistedtoken'), ('Can add outstanding token', 15, 'add_outstandingtoken'), ('Can change outstanding token', 15, 'change_outstandingtoken'), ('Can delete outstanding token', 15, 'delete_outstandingtoken'), ('Can view outstanding token', 15, 'view_outstandingtoken') RETURNING "auth_permission"."id"; args=('Can add blacklisted token', 14, 'add_blacklistedtoken', 'Can change blacklisted token', 14, 'change_blacklistedtoken', 'Can delete blacklisted token', 14, 'delete_blacklistedtoken', 'Can view blacklisted token', 14, 'view_blacklistedtoken', 'Can add outstanding token', 15, 'add_outstandingtoken', 'Can change outstanding token', 15, 'change_outstandingtoken', 'Can delete outstanding token', 15, 'delete_outstandingtoken', 'Can view outstanding token', 15, 'view_outstandingtoken'); alias=default
+(0.251) COMMIT; args=None; alias=default
+(0.266) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'token_blacklist'; args=('token_blacklist',); alias=default
