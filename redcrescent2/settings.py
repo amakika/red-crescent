@@ -168,3 +168,19 @@ LOGGING = {
 
 # Temporary debugging settings
 DEBUG = True
+
+# Add this setting to handle trailing slashes
+APPEND_SLASH = False
+
+# Update middleware to handle URLs properly
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'volonteer.middleware.MobileCsrfExemptMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]

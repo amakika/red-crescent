@@ -1,11 +1,11 @@
 import requests
 import json
 
-# Configuration
-API_URL = "https://redcresent22.onrender.com/api/login"
+# Update the URL to include trailing slash
+API_URL = "https://redcresent22.onrender.com/api/login/"
 TEST_USER = {
-    "username": "yasin",  # Replace with actual test username
-    "password": "yasinatay"   # Replace with actual test password
+    "username": "your_username",  # Replace with actual test username
+    "password": "your_password"   # Replace with actual test password
 }
 
 def test_login_endpoint():
