@@ -57,34 +57,42 @@ class LoginView(APIView):
     
     def post(self, request):
         try:
+            # Debugging: Print incoming request data
+            print("Incoming login request data:", request.data)
+            
             username = request.data.get('username')
             password = request.data.get('password')
 
+            # Validate input
             if not username or not password:
                 return Response(
-                    {'error': 'Username and password are required.'},
+                    {'error': 'Both username and password are required'},
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
-            # Add this check to ensure user exists
-            try:
-                user = User.objects.get(username=username)
-            except User.DoesNotExist:
-                return Response(
-                    {'error': 'User not found'},
-                    status=status.HTTP_404_NOT_FOUND
-                )
-
-            # Authenticate the user
+            # Debugging: Print before authentication
+            print(f"Attempting to authenticate user: {username}")
+            
+            # Authenticate user
             user = authenticate(username=username, password=password)
-
+            
             if user is None:
+                # Debugging: Print authentication failure
+                print(f"Authentication failed for user: {username}")
                 return Response(
                     {'error': 'Invalid credentials'},
                     status=status.HTTP_401_UNAUTHORIZED
                 )
 
+            # Debugging: Print successful authentication
+            print(f"User {username} authenticated successfully")
+            
+            # Generate tokens
             refresh = RefreshToken.for_user(user)
+            
+            # Debugging: Print token generation
+            print("Tokens generated successfully")
+            
             return Response({
                 'access': str(refresh.access_token),
                 'refresh': str(refresh),
@@ -92,9 +100,11 @@ class LoginView(APIView):
             })
 
         except Exception as e:
+            # Enhanced error logging
+            print(f"Error in LoginView: {str(e)}")
             logger.error(f"Error in LoginView: {str(e)}", exc_info=True)
             return Response(
-                {'error': str(e)},  # Return the actual error message
+                {'error': 'Internal server error', 'details': str(e)},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
