@@ -1,0 +1,9 @@
+app = "redcrescent2"
+
+[build]
+  dockerfile = "Dockerfile"  # Use the Dockerfile you created
+
+[[services]]
+  internal_port = 8000
+  protocol = "tcp"
+  script = "python manage.py runserver 0.0.0.0:8000"
