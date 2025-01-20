@@ -1,5 +1,8 @@
-# Use a specific Python version as the base image
+# Use the official Python image from Docker Hub
 FROM python:3.12.8-slim
+
+# Set environment variables
+ENV PYTHONUNBUFFERED 1
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -10,11 +13,11 @@ COPY requirements.txt .
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application code
+# Copy the entire project into the container
 COPY . .
 
-# Expose the app on a port (typically 8000 for Django)
+# Expose the port Django will run on
 EXPOSE 8000
 
-# Command to run the app
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Command to run Django application
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "redcrescent2.wsgi:application"]
