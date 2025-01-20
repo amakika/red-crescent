@@ -105,11 +105,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Cloudinary configuration
 cloudinary.config(
-    cloud_name=env('CLOUDINARY_CLOUD_NAME', default='your_cloud_name'),
-    api_key=env('CLOUDINARY_API_KEY', default='your_api_key'),
-    api_secret=env('CLOUDINARY_API_SECRET', default='your_api_secret'),
+    cloud_name=env('CLOUDINARY_CLOUD_NAME'),
+    api_key=env('CLOUDINARY_API_KEY'),
+    api_secret=env('CLOUDINARY_API_SECRET'),
 )
-
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticCloudinaryStorage'
 
