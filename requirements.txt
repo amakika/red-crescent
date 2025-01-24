@@ -11,4 +11,4 @@ cloudinary
 django-cloudinary-storage
 Pillow
 django-storages
-django-filters
+django-filter
