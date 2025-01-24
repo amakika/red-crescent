@@ -11,4 +11,4 @@ cloudinary
 django-cloudinary-storage
 Pillow
 django-storages
-django-filter
+django-filter==23.5
