@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'drf_yasg',
     'corsheaders',
-    'django_filter',
+    
     'django_filters',
 ]
 
