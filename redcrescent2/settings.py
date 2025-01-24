@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'drf_yasg',
     'corsheaders',
-    
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -173,14 +173,3 @@ DEBUG = True
 APPEND_SLASH = False
 
 # Update middleware to handle URLs properly
-MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'volonteer.middleware.MobileCsrfExemptMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]

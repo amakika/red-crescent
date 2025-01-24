@@ -3,6 +3,9 @@ from rest_framework.routers import DefaultRouter
 from .views import (
     LoginView, UserViewSet, TaskViewSet,
     EventViewSet, LeaderboardViewSet, StatisticViewSet,MeView,CheckAchievementsView,
+    TotalHoursStatsView,
+    CompletedTasksStatsView,
+    GenderStatsView,
 )
 
 router = DefaultRouter()
@@ -17,4 +20,7 @@ urlpatterns = [
     path('', include(router.urls)),
     path('me/', MeView.as_view(), name='me'),
     path('check-achievements/', CheckAchievementsView.as_view(), name='check-achievements'),
+    path('api/stats/total-hours/', TotalHoursStatsView.as_view(), name='total-hours-stats'),
+    path('api/stats/completed-tasks/', CompletedTasksStatsView.as_view(), name='completed-tasks-stats'),
+    path('api/stats/gender-stats/', GenderStatsView.as_view(), name='gender-stats'),
 ]

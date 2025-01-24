@@ -27,10 +27,20 @@ from django.http import JsonResponse
 from django.views import View
 from rest_framework.pagination import PageNumberPagination
 import logging
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
+from django.db.models import Sum, Count
+from django.utils import timezone
+from datetime import timedelta
 
 logger = logging.getLogger(__name__)
 
 class StandardResultsSetPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 100
+
+class CustomPageNumberPagination(PageNumberPagination):
     page_size = 10
     page_size_query_param = 'page_size'
     max_page_size = 100
@@ -106,6 +116,21 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
+    pagination_class = CustomPageNumberPagination
+    filter_backends = [filters.OrderingFilter, DjangoFilterBackend]
+    ordering_fields = ['totalhours']
+    ordering = ['-totalhours']
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        ordering = self.request.query_params.get('ordering', None)
+        
+        if ordering == 'totalhours':
+            return queryset.order_by('totalhours')
+        elif ordering == '-totalhours':
+            return queryset.order_by('-totalhours')
+            
+        return queryset
 
 
 # Task ViewSet
@@ -153,6 +178,7 @@ class EventViewSet(viewsets.ModelViewSet):
     serializer_class = EventSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
+    pagination_class = StandardResultsSetPagination
 
     def create(self, request, *args, **kwargs):
         if request.user.role not in ['coordinator', 'admin']:
@@ -224,4 +250,64 @@ class CheckAchievementsView(APIView):
 
         serializer = AchievementSerializer(unlocked, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class TotalHoursStatsView(APIView):
+    def get(self, request):
+        # Получаем данные за последние 12 месяцев
+        end_date = timezone.now()
+        start_date = end_date - timedelta(days=365)
+
+        # Группируем по месяцам и суммируем total_hours
+        stats = User.objects.filter(
+            date_joined__range=[start_date, end_date]
+        ).extra(
+            {'month': "to_char(date_joined, 'YYYY-MM')"}
+        ).values('month').annotate(
+            total_hours=Sum('total_hours')
+        ).order_by('month')
+
+        return Response(stats)
+
+class CompletedTasksStatsView(APIView):
+    def get(self, request):
+        # Получаем данные за последние 12 месяцев
+        end_date = timezone.now()
+        start_date = end_date - timedelta(days=365)
+
+        # Группируем по месяцам и считаем completed tasks
+        stats = Task.objects.filter(
+            created_at__range=[start_date, end_date],
+            status='completed'
+        ).extra(
+            {'month': "to_char(created_at, 'YYYY-MM')"}
+        ).values('month').annotate(
+            completed_tasks=Count('id')
+        ).order_by('month')
+
+        return Response(stats)
+
+class GenderStatsView(APIView):
+    def get(self, request):
+        # Группируем по полу и считаем total_hours и completed_tasks
+        stats = User.objects.values('gender').annotate(
+            total_hours=Sum('total_hours'),
+            completed_tasks=Sum('completed_tasks')
+        )
+
+        # Преобразуем в удобный формат
+        result = {
+            'male': {'total_hours': 0, 'completed_tasks': 0},
+            'female': {'total_hours': 0, 'completed_tasks': 0},
+        }
+
+        for item in stats:
+            if item['gender'] == 'male':
+                result['male']['total_hours'] = item['total_hours']
+                result['male']['completed_tasks'] = item['completed_tasks']
+            elif item['gender'] == 'female':
+                result['female']['total_hours'] = item['total_hours']
+                result['female']['completed_tasks'] = item['completed_tasks']
+
+        return Response(result)
+
 # Create your views here.
