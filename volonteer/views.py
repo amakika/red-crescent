@@ -118,17 +118,17 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = CustomPageNumberPagination
     filter_backends = [filters.OrderingFilter, DjangoFilterBackend]
-    ordering_fields = ['totalhours']
-    ordering = ['-totalhours']
+    ordering_fields = ['total_hours']
+    ordering = ['-total_hours']
 
     def get_queryset(self):
         queryset = super().get_queryset()
         ordering = self.request.query_params.get('ordering', None)
         
-        if ordering == 'totalhours':
-            return queryset.order_by('totalhours')
-        elif ordering == '-totalhours':
-            return queryset.order_by('-totalhours')
+        if ordering == 'total_hours':
+            return queryset.order_by('total_hours')
+        elif ordering == '-total_hours':
+            return queryset.order_by('-total_hours')
             
         return queryset
 

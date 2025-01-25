@@ -2,9 +2,9 @@ import requests
 import json
 
 # Update the URL to include trailing slash
-API_URL = "https://redcresent22.onrender.com/api/login/"
+API_URL = "https://red-crescent-production.up.railway.app/api/login/"
 TEST_USER = {
-    "username": "Yasin",  # Replace with actual test username
+    "username": "yasin",  # Replace with actual test username
     "password": "yasinatay"   # Replace with actual test password
 }
 

@@ -41,7 +41,7 @@ class User(AbstractUser):
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True, blank=True)
     role = models.CharField(max_length=15, choices=ROLE_CHOICES, null=True, blank=True)
     phone_number = models.CharField(max_length=15, null=True, blank=True)
-    total_hours = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
+    total_hours = models.FloatField(default=0.0)
     xp_points = models.IntegerField(default=0)
     profile_picture = CloudinaryField('image', null=True, blank=True)
     profile_picture_width = models.PositiveIntegerField(null=True, blank=True)
