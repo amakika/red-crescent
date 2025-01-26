@@ -121,6 +121,7 @@ class Task(models.Model):
     status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='pending')
     due_date = models.DateTimeField()
     hours_to_complete = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
+    location = models.CharField(max_length=255, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_public = models.BooleanField(default=False)

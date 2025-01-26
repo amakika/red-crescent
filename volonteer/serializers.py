@@ -25,8 +25,16 @@ class UserSerializer(serializers.ModelSerializer):
         return AchievementSerializer(obj.achievements.all(), many=True).data
 
 
+class CoordinatorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email']  # Include any fields you want to display
+
+
 class TaskSerializer(serializers.ModelSerializer):
     photo = serializers.ImageField(required=False)
+    coordinator = CoordinatorSerializer(read_only=True)  # Nested serializer for coordinator
+
     class Meta:
         model = Task
         fields = '__all__'
