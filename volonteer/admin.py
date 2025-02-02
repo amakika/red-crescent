@@ -18,6 +18,13 @@ class TaskAdmin(admin.ModelAdmin):
     search_fields = ('title', 'status')
     list_filter = ('status', 'is_public')
 
+    def save_model(self, request, obj, form, change):
+        """ Сначала сохраняем объект Task, потом применяем ManyToMany связи """
+        if not obj.pk:  # Проверяем, есть ли уже ID (т.е. сохранен ли объект)
+            obj.save()
+        form.save_m2m()  # Теперь можно сохранить ManyToMany
+
+
 @admin.register(TaskParticipation)
 class TaskParticipationAdmin(admin.ModelAdmin):
     list_display = ('user', 'task', 'is_participating', 'joined_at')
