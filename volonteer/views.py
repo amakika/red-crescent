@@ -21,6 +21,7 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 import logging
+from django.db import models
 
 logger = logging.getLogger(__name__)
 
@@ -70,17 +71,13 @@ class LoginView(APIView):
             )
 
         refresh = RefreshToken.for_user(user)
-        user_data = UserSerializer(user).data if hasattr(user, 'id') else {
-            'id': user.id,
-            'username': user.username,
-            'email': user.email
-        }
+        user_data = UserSerializer(user).data
 
         return Response({
             'access': str(refresh.access_token),
             'refresh': str(refresh),
             'user': user_data
-        })
+        }, status=status.HTTP_200_OK)
 
 
 # User ViewSet
@@ -116,36 +113,33 @@ class TaskViewSet(viewsets.ModelViewSet):
         """
         user = self.request.user
         if user.role == 'volunteer':
-            return Task.objects.filter(is_active=True)
+            return Task.objects.filter(status='pending')
         return Task.objects.all()
 
     @action(detail=True, methods=['get'])
     def is_participating(self, request, pk=None):
-  
-      task = get_object_or_404(Task, pk=pk)
-      user = request.user
-      is_participating = not TaskParticipation.objects.filter(user=user, task=task).exists()
-
-      return Response({'is_participating': is_participating}, status=status.HTTP_200_OK)
-
+        task = get_object_or_404(Task, pk=pk)
+        user = request.user
+        is_participating = TaskParticipation.objects.filter(user=user, task=task).exists()
+        return Response({'is_participating': is_participating}, status=status.HTTP_200_OK)
 
     @action(detail=True, methods=['post'])
     def participate(self, request, pk=None):
         """
-        Allows a user to participate in a task. Returns boolean status.
+        Allows a user to participate in a task.
         """
         task = get_object_or_404(Task, pk=pk)
         user = request.user
 
         if user.role != 'volunteer':
             return Response(
-                {'error': 'Only volunteers can participate.', 'is_participating': False},
+                {'error': 'Only volunteers can participate.'},
                 status=status.HTTP_403_FORBIDDEN
             )
 
         if task.is_full():
             return Response(
-                {'error': 'Task is full.', 'is_participating': False},
+                {'error': 'Task is full.'},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
@@ -153,12 +147,12 @@ class TaskViewSet(viewsets.ModelViewSet):
 
         if not created:
             return Response(
-                {'error': 'Already participating.', 'is_participating': True},
+                {'error': 'Already participating.'},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
         return Response(
-            {'message': 'Participation successful.', 'is_participating': True},
+            {'message': 'Participation successful.'},
             status=status.HTTP_200_OK
         )
 
@@ -174,14 +168,15 @@ class TaskViewSet(viewsets.ModelViewSet):
         if participation.exists():
             participation.delete()
             return Response(
-                {'message': 'Successfully left the task.', 'is_participating': False},
+                {'message': 'Successfully left the task.'},
                 status=status.HTTP_200_OK
             )
 
         return Response(
-            {'error': 'You are not participating in this task.', 'is_participating': False},
+            {'error': 'You are not participating in this task.'},
             status=status.HTTP_400_BAD_REQUEST
         )
+
 
 # Event ViewSet
 class EventViewSet(viewsets.ModelViewSet):
@@ -267,7 +262,7 @@ class CheckAchievementsView(APIView):
 
         for achievement in achievements:
             if (user.total_hours >= achievement.criteria_hours and
-                user.completed_tasks >= achievement.criteria_tasks and
+                user.taskparticipation_set.filter(is_participated=True).count() >= achievement.criteria_tasks and
                 achievement not in user.achievements.all()):
                 user.achievements.add(achievement)
                 unlocked.append(achievement)
@@ -313,12 +308,13 @@ class GenderStatsView(APIView):
     def get(self, request):
         stats = User.objects.values('gender').annotate(
             total_hours=Sum('total_hours'),
-            completed_tasks=Sum('completed_tasks')
+            completed_tasks=Count('taskparticipation', filter=models.Q(taskparticipation__is_participated=True))
         )
 
         result = {
             'male': {'total_hours': 0, 'completed_tasks': 0},
             'female': {'total_hours': 0, 'completed_tasks': 0},
+            'other': {'total_hours': 0, 'completed_tasks': 0},
         }
 
         for item in stats:
@@ -332,5 +328,10 @@ class GenderStatsView(APIView):
                     'total_hours': item['total_hours'],
                     'completed_tasks': item['completed_tasks']
                 }
+            elif item['gender'] == 'other':
+                result['other'] = {
+                    'total_hours': item['total_hours'],
+                    'completed_tasks': item['completed_tasks']
+                }
 
-        return Response(result)
+        return Response(result, status=status.HTTP_200_OK)
