@@ -118,18 +118,21 @@ class TaskViewSet(viewsets.ModelViewSet):
         if user.role == 'volunteer':
             return Task.objects.filter(is_active=True)
         return Task.objects.all()
+     @action(detail=True, methods=['get'])
+     def is_participating(self, request, pk=None):
+    """
+    Проверяет, участвует ли пользователь в задаче.
+    Возвращает true, если НЕ участвует, и false, если участвует.
+    """
+       task = get_object_or_404(Task, pk=pk)
+       user = request.user
+       is_participating = TaskParticipation.objects.filter(user=user, task=task).exists()
 
-    @action(detail=True, methods=['get'])
-    def is_participating(self, request, pk=None):
-        """
-        Checks if the authenticated user is participating in the task.
-        """
-        task = get_object_or_404(Task, pk=pk)
-        user = request.user
-        is_participating = TaskParticipation.objects.filter(user=user, task=task).exists()
-
-        return Response({'is_participating': is_participating}, status=status.HTTP_200_OK)
-
+    # Возвращаем true, если не участвует (значит, можно участвовать),
+    # и false, если уже участвует.
+       return Response({'is_participating': not is_participating}, status=status.HTTP_200_OK)
+     
+        
     @action(detail=True, methods=['post'])
     def participate(self, request, pk=None):
         """
