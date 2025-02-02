@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
@@ -7,7 +6,10 @@ from rest_framework.decorators import action
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.contrib.auth import authenticate
-from .models import User, Task, Event, Leaderboard, Achievement
+from django.utils import timezone
+from datetime import timedelta
+from django.db.models import Sum, Count
+from .models import User, Task, Event, Leaderboard, Achievement, TaskParticipation
 from .serializers import (
     UserSerializer,
     TaskSerializer,
@@ -15,99 +17,70 @@ from .serializers import (
     LeaderboardSerializer,
     AchievementSerializer,
 )
-from rest_framework import permissions
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from .serializers import UserSerializer
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
-from django.http import JsonResponse
-from django.views import View
 from rest_framework.pagination import PageNumberPagination
-import logging
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
-from django.db.models import Sum, Count
-from django.utils import timezone
-from datetime import timedelta
+import logging
 
 logger = logging.getLogger(__name__)
 
+
+# Pagination Classes
 class StandardResultsSetPagination(PageNumberPagination):
     page_size = 10
     page_size_query_param = 'page_size'
     max_page_size = 100
+
 
 class CustomPageNumberPagination(PageNumberPagination):
     page_size = 10
     page_size_query_param = 'page_size'
     max_page_size = 100
 
+
+# Authentication and User Views
 class MeView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        # Get the current authenticated user
         user = request.user
-        
-        # Serialize the user data
         user_data = UserSerializer(user).data
-
-        # Return the user data
         return Response(user_data, status=status.HTTP_200_OK)
 
 
-@method_decorator(csrf_exempt, name='dispatch')
-# Login Endpoint for JWT Tokens
 class LoginView(APIView):
     permission_classes = [permissions.AllowAny]
-    
+
     def post(self, request):
-        try:
-            username = request.data.get('username')
-            password = request.data.get('password')
+        username = request.data.get('username')
+        password = request.data.get('password')
 
-            if not username or not password:
-                return Response(
-                    {'error': 'Username and password are required'},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
-
-            user = authenticate(username=username, password=password)
-
-            if user is None:
-                return Response(
-                    {'error': 'Invalid credentials'},
-                    status=status.HTTP_401_UNAUTHORIZED
-                )
-
-            refresh = RefreshToken.for_user(user)
-            
-            # Use a simplified user data response if serializer fails
-            try:
-                user_data = UserSerializer(user).data
-            except Exception as e:
-                user_data = {
-                    'id': user.id,
-                    'username': user.username,
-                    'email': user.email
-                }
-
-            return Response({
-                'access': str(refresh.access_token),
-                'refresh': str(refresh),
-                'user': user_data
-            })
-
-        except Exception as e:
-            logger.error(f"Error in LoginView: {str(e)}", exc_info=True)
+        if not username or not password:
             return Response(
-                {'error': 'Internal server error'},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                {'error': 'Username and password are required'},
+                status=status.HTTP_400_BAD_REQUEST
             )
+
+        user = authenticate(username=username, password=password)
+        if not user:
+            return Response(
+                {'error': 'Invalid credentials'},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+
+        refresh = RefreshToken.for_user(user)
+        user_data = UserSerializer(user).data if hasattr(user, 'id') else {
+            'id': user.id,
+            'username': user.username,
+            'email': user.email
+        }
+
+        return Response({
+            'access': str(refresh.access_token),
+            'refresh': str(refresh),
+            'user': user_data
+        })
 
 
 # User ViewSet
@@ -123,13 +96,11 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        ordering = self.request.query_params.get('ordering', None)
-        
+        ordering = self.request.query_params.get('ordering')
         if ordering == 'total_hours':
             return queryset.order_by('total_hours')
         elif ordering == '-total_hours':
             return queryset.order_by('-total_hours')
-            
         return queryset
 
 
@@ -143,7 +114,10 @@ class TaskViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         if request.user.role not in ['coordinator', 'admin']:
-            return Response({'error': 'Only coordinators or admins can create tasks.'}, status=status.HTTP_403_FORBIDDEN)
+            return Response(
+                {'error': 'Only coordinators or admins can create tasks.'},
+                status=status.HTTP_403_FORBIDDEN
+            )
         return super().create(request, *args, **kwargs)
 
     def perform_create(self, serializer):
@@ -152,24 +126,77 @@ class TaskViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         if user.role == 'volunteer':
-            return self.queryset.filter(is_public=True) | self.queryset.filter(assigned_volunteers=user)
+            return Task.objects.filter(is_public=True) | Task.objects.filter(assigned_volunteers=user)
         elif user.role == 'coordinator':
-            return self.queryset.filter(coordinator=user)
-        return self.queryset.filter(is_public=True)
+            return Task.objects.filter(coordinator=user)
+        return Task.objects.all()
 
     @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated])
     def participate(self, request, pk=None):
         task = get_object_or_404(Task, pk=pk)
         user = request.user
 
-        if task.status != 'pending':
-            return Response({'error': 'Only pending tasks can be joined.'}, status=status.HTTP_400_BAD_REQUEST)
+        if user.role != 'volunteer':
+            return Response(
+                {'error': 'Only volunteers can participate in tasks.'},
+                status=status.HTTP_403_FORBIDDEN
+            )
 
-        if user in task.assigned_volunteers.all():
-            return Response({'error': 'You are already assigned to this task.'}, status=status.HTTP_400_BAD_REQUEST)
+        if task.is_full():
+            return Response(
+                {'error': 'This task has reached its volunteer limit.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
-        task.assigned_volunteers.add(user)
-        return Response({'success': f'You have joined the task "{task.title}".'}, status=status.HTTP_200_OK)
+        if TaskParticipation.objects.filter(user=user, task=task).exists():
+            return Response(
+                {'error': 'You are already participating in this task.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        TaskParticipation.objects.create(user=user, task=task, is_participating=True)
+        return Response(
+            {'success': f'You have successfully joined the task "{task.title}".'},
+            status=status.HTTP_200_OK
+        )
+
+    @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated])
+    def leave(self, request, pk=None):
+        task = get_object_or_404(Task, pk=pk)
+        user = request.user
+
+        if user.role != 'volunteer':
+            return Response(
+                {'error': 'Only volunteers can leave tasks.'},
+                status=status.HTTP_403_FORBIDDEN
+            )
+
+        participation = TaskParticipation.objects.filter(user=user, task=task).first()
+        if not participation:
+            return Response(
+                {'error': 'You are not participating in this task.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        participation.delete()
+        return Response(
+            {'success': f'You have left the task "{task.title}".'},
+            status=status.HTTP_200_OK
+        )
+
+    @action(detail=True, methods=['get'], permission_classes=[permissions.IsAuthenticated])
+    def participants(self, request, pk=None):
+        task = get_object_or_404(Task, pk=pk)
+        participants = TaskParticipation.objects.filter(task=task, is_participating=True)
+        participant_data = [
+            {
+                'id': participation.user.id,
+                'username': participation.user.username,
+                'joined_at': participation.joined_at
+            }
+            for participation in participants
+        ]
+        return Response(participant_data, status=status.HTTP_200_OK)
 
 
 # Event ViewSet
@@ -182,7 +209,10 @@ class EventViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         if request.user.role not in ['coordinator', 'admin']:
-            return Response({"error": "Only coordinators or admins can create events."}, status=status.HTTP_403_FORBIDDEN)
+            return Response(
+                {'error': 'Only coordinators or admins can create events.'},
+                status=status.HTTP_403_FORBIDDEN
+            )
         return super().create(request, *args, **kwargs)
 
     def perform_create(self, serializer):
@@ -191,10 +221,10 @@ class EventViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         if user.role == 'volunteer':
-            return self.queryset.filter(is_public=True) | self.queryset.filter(registered_volunteers=user)
+            return Event.objects.filter(is_public=True) | Event.objects.filter(registered_volunteers=user)
         elif user.role == 'coordinator':
-            return self.queryset.filter(coordinator=user)
-        return self.queryset.filter(is_public=True)
+            return Event.objects.filter(coordinator=user)
+        return Event.objects.all()
 
     @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated])
     def register(self, request, pk=None):
@@ -202,10 +232,16 @@ class EventViewSet(viewsets.ModelViewSet):
         user = request.user
 
         if user in event.registered_volunteers.all():
-            return Response({'error': 'You are already registered for this event.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {'error': 'You are already registered for this event.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
         event.registered_volunteers.add(user)
-        return Response({'success': f'You have registered for the event "{event.title}".'}, status=status.HTTP_200_OK)
+        return Response(
+            {'success': f'You have registered for the event "{event.title}".'},
+            status=status.HTTP_200_OK
+        )
 
 
 # Leaderboard ViewSet
@@ -217,27 +253,31 @@ class LeaderboardViewSet(viewsets.ModelViewSet):
     pagination_class = StandardResultsSetPagination
 
 
-# Statistics Endpoint
+# Statistics and Analytics Views
 class StatisticViewSet(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
         if request.user.role not in ['coordinator', 'admin']:
-            return Response({"error": "Only coordinators or admins can view statistics."}, status=status.HTTP_403_FORBIDDEN)
+            return Response(
+                {'error': 'Only coordinators or admins can view statistics.'},
+                status=status.HTTP_403_FORBIDDEN
+            )
 
         stats = {
-            "total_tasks": Task.objects.count(),
-            "completed_tasks": Task.objects.filter(status='completed').count(),
-            "total_events": Event.objects.count(),
-            "total_volunteers": User.objects.filter(role='volunteer').count(),
-            "total_coordinators": User.objects.filter(role='coordinator').count(),
+            'total_tasks': Task.objects.count(),
+            'completed_tasks': Task.objects.filter(status='completed').count(),
+            'total_events': Event.objects.count(),
+            'total_volunteers': User.objects.filter(role='volunteer').count(),
+            'total_coordinators': User.objects.filter(role='coordinator').count(),
         }
         return Response(stats, status=status.HTTP_200_OK)
 
+
 class CheckAchievementsView(APIView):
     def post(self, request, user_id):
-        user = User.objects.get(id=user_id)
+        user = get_object_or_404(User, id=user_id)
         achievements = Achievement.objects.all()
         unlocked = []
 
@@ -245,19 +285,18 @@ class CheckAchievementsView(APIView):
             if (user.total_hours >= achievement.criteria_hours and
                 user.completed_tasks >= achievement.criteria_tasks and
                 achievement not in user.achievements.all()):
-                user.achievements.add(achievement)  # Add the achievement to the user
+                user.achievements.add(achievement)
                 unlocked.append(achievement)
 
         serializer = AchievementSerializer(unlocked, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+
 class TotalHoursStatsView(APIView):
     def get(self, request):
-        # Получаем данные за последние 12 месяцев
         end_date = timezone.now()
         start_date = end_date - timedelta(days=365)
 
-        # Группируем по месяцам и суммируем total_hours
         stats = User.objects.filter(
             date_joined__range=[start_date, end_date]
         ).extra(
@@ -268,13 +307,12 @@ class TotalHoursStatsView(APIView):
 
         return Response(stats)
 
+
 class CompletedTasksStatsView(APIView):
     def get(self, request):
-        # Получаем данные за последние 12 месяцев
         end_date = timezone.now()
         start_date = end_date - timedelta(days=365)
 
-        # Группируем по месяцам и считаем completed tasks
         stats = Task.objects.filter(
             created_at__range=[start_date, end_date],
             status='completed'
@@ -286,15 +324,14 @@ class CompletedTasksStatsView(APIView):
 
         return Response(stats)
 
+
 class GenderStatsView(APIView):
     def get(self, request):
-        # Группируем по полу и считаем total_hours и completed_tasks
         stats = User.objects.values('gender').annotate(
             total_hours=Sum('total_hours'),
             completed_tasks=Sum('completed_tasks')
         )
 
-        # Преобразуем в удобный формат
         result = {
             'male': {'total_hours': 0, 'completed_tasks': 0},
             'female': {'total_hours': 0, 'completed_tasks': 0},
@@ -302,12 +339,14 @@ class GenderStatsView(APIView):
 
         for item in stats:
             if item['gender'] == 'male':
-                result['male']['total_hours'] = item['total_hours']
-                result['male']['completed_tasks'] = item['completed_tasks']
+                result['male'] = {
+                    'total_hours': item['total_hours'],
+                    'completed_tasks': item['completed_tasks']
+                }
             elif item['gender'] == 'female':
-                result['female']['total_hours'] = item['total_hours']
-                result['female']['completed_tasks'] = item['completed_tasks']
+                result['female'] = {
+                    'total_hours': item['total_hours'],
+                    'completed_tasks': item['completed_tasks']
+                }
 
         return Response(result)
-
-# Create your views here.
