@@ -108,96 +108,81 @@ class UserViewSet(viewsets.ModelViewSet):
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
-    pagination_class = StandardResultsSetPagination
-
-    def create(self, request, *args, **kwargs):
-        if request.user.role not in ['coordinator', 'admin']:
-            return Response(
-                {'error': 'Only coordinators or admins can create tasks.'},
-                status=status.HTTP_403_FORBIDDEN
-            )
-        return super().create(request, *args, **kwargs)
-
-    def perform_create(self, serializer):
-        serializer.save(coordinator=self.request.user)
 
     def get_queryset(self):
+        """
+        Filter tasks based on user role (e.g., volunteers see only open tasks).
+        """
         user = self.request.user
         if user.role == 'volunteer':
-            return Task.objects.filter(is_public=True) | Task.objects.filter(assigned_volunteers=user)
-        elif user.role == 'coordinator':
-            return Task.objects.filter(coordinator=user)
+            return Task.objects.filter(is_active=True)
         return Task.objects.all()
 
-    @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated])
+    @action(detail=True, methods=['get'])
+    def is_participating(self, request, pk=None):
+        """
+        Checks if the authenticated user is participating in the task.
+        """
+        task = get_object_or_404(Task, pk=pk)
+        user = request.user
+        is_participating = TaskParticipation.objects.filter(user=user, task=task).exists()
+
+        return Response({'is_participating': is_participating}, status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=['post'])
     def participate(self, request, pk=None):
+        """
+        Allows a user to participate in a task. Returns boolean status.
+        """
         task = get_object_or_404(Task, pk=pk)
         user = request.user
 
         if user.role != 'volunteer':
             return Response(
-                {'error': 'Only volunteers can participate in tasks.'},
+                {'error': 'Only volunteers can participate.', 'is_participating': False},
                 status=status.HTTP_403_FORBIDDEN
             )
 
         if task.is_full():
             return Response(
-                {'error': 'This task has reached its volunteer limit.'},
+                {'error': 'Task is full.', 'is_participating': False},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        if TaskParticipation.objects.filter(user=user, task=task).exists():
+        participation, created = TaskParticipation.objects.get_or_create(user=user, task=task)
+
+        if not created:
             return Response(
-                {'error': 'You are already participating in this task.'},
+                {'error': 'Already participating.', 'is_participating': True},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        TaskParticipation.objects.create(user=user, task=task, is_participating=True)
         return Response(
-            {'success': f'You have successfully joined the task "{task.title}".'},
+            {'message': 'Participation successful.', 'is_participating': True},
             status=status.HTTP_200_OK
         )
 
-    @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated])
+    @action(detail=True, methods=['post'])
     def leave(self, request, pk=None):
+        """
+        Allows a user to leave a task.
+        """
         task = get_object_or_404(Task, pk=pk)
         user = request.user
 
-        if user.role != 'volunteer':
+        participation = TaskParticipation.objects.filter(user=user, task=task)
+        if participation.exists():
+            participation.delete()
             return Response(
-                {'error': 'Only volunteers can leave tasks.'},
-                status=status.HTTP_403_FORBIDDEN
+                {'message': 'Successfully left the task.', 'is_participating': False},
+                status=status.HTTP_200_OK
             )
 
-        participation = TaskParticipation.objects.filter(user=user, task=task).first()
-        if not participation:
-            return Response(
-                {'error': 'You are not participating in this task.'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
-        participation.delete()
         return Response(
-            {'success': f'You have left the task "{task.title}".'},
-            status=status.HTTP_200_OK
+            {'error': 'You are not participating in this task.', 'is_participating': False},
+            status=status.HTTP_400_BAD_REQUEST
         )
-
-    @action(detail=True, methods=['get'], permission_classes=[permissions.IsAuthenticated])
-    def participants(self, request, pk=None):
-        task = get_object_or_404(Task, pk=pk)
-        participants = TaskParticipation.objects.filter(task=task, is_participating=True)
-        participant_data = [
-            {
-                'id': participation.user.id,
-                'username': participation.user.username,
-                'joined_at': participation.joined_at
-            }
-            for participation in participants
-        ]
-        return Response(participant_data, status=status.HTTP_200_OK)
-
 
 # Event ViewSet
 class EventViewSet(viewsets.ModelViewSet):
