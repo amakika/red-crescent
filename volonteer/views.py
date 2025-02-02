@@ -24,16 +24,19 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 # Pagination Classes
 class StandardResultsSetPagination(PageNumberPagination):
     page_size = 10
     page_size_query_param = 'page_size'
     max_page_size = 100
 
+
 class CustomPageNumberPagination(PageNumberPagination):
     page_size = 10
     page_size_query_param = 'page_size'
     max_page_size = 100
+
 
 # Authentication and User Views
 class MeView(APIView):
@@ -41,16 +44,15 @@ class MeView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        """Returns the authenticated user's data."""
         user = request.user
         user_data = UserSerializer(user).data
         return Response(user_data, status=status.HTTP_200_OK)
+
 
 class LoginView(APIView):
     permission_classes = [permissions.AllowAny]
 
     def post(self, request):
-        """Authenticates a user and returns JWT tokens."""
         username = request.data.get('username')
         password = request.data.get('password')
 
@@ -80,6 +82,7 @@ class LoginView(APIView):
             'user': user_data
         })
 
+
 # User ViewSet
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -92,7 +95,6 @@ class UserViewSet(viewsets.ModelViewSet):
     ordering = ['-total_hours']
 
     def get_queryset(self):
-        """Override to filter users based on specific ordering."""
         queryset = super().get_queryset()
         ordering = self.request.query_params.get('ordering')
         if ordering == 'total_hours':
@@ -101,6 +103,7 @@ class UserViewSet(viewsets.ModelViewSet):
             return queryset.order_by('-total_hours')
         return queryset
 
+
 # Task ViewSet
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
@@ -108,7 +111,9 @@ class TaskViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        """Filter tasks based on the user's role."""
+        """
+        Filter tasks based on user role (e.g., volunteers see only open tasks).
+        """
         user = self.request.user
         if user.role == 'volunteer':
             return Task.objects.filter(is_active=True)
@@ -116,20 +121,18 @@ class TaskViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['get'])
     def is_participating(self, request, pk=None):
-        """
-        Checks if the user is participating in a specific task.
-        Returns True if the user is not participating, and False if they are.
-        """
-        task = get_object_or_404(Task, pk=pk)
-        user = request.user
-        is_participating = TaskParticipation.objects.filter(user=user, task=task).exists()
-        return Response({'is_participating': not is_participating}, status=status.HTTP_200_OK)
+  
+      task = get_object_or_404(Task, pk=pk)
+      user = request.user
+      is_participating = not TaskParticipation.objects.filter(user=user, task=task).exists()
+
+      return Response({'is_participating': is_participating}, status=status.HTTP_200_OK)
+
 
     @action(detail=True, methods=['post'])
     def participate(self, request, pk=None):
         """
-        Allows a user to participate in a task.
-        Returns a success or error message depending on the task's status and user role.
+        Allows a user to participate in a task. Returns boolean status.
         """
         task = get_object_or_404(Task, pk=pk)
         user = request.user
@@ -189,7 +192,6 @@ class EventViewSet(viewsets.ModelViewSet):
     pagination_class = StandardResultsSetPagination
 
     def create(self, request, *args, **kwargs):
-        """Only coordinators or admins can create events."""
         if request.user.role not in ['coordinator', 'admin']:
             return Response(
                 {'error': 'Only coordinators or admins can create events.'},
@@ -198,11 +200,9 @@ class EventViewSet(viewsets.ModelViewSet):
         return super().create(request, *args, **kwargs)
 
     def perform_create(self, serializer):
-        """Assign the event's coordinator to the current authenticated user."""
         serializer.save(coordinator=self.request.user)
 
     def get_queryset(self):
-        """Filter events based on the user's role."""
         user = self.request.user
         if user.role == 'volunteer':
             return Event.objects.filter(is_public=True) | Event.objects.filter(registered_volunteers=user)
@@ -210,9 +210,8 @@ class EventViewSet(viewsets.ModelViewSet):
             return Event.objects.filter(coordinator=user)
         return Event.objects.all()
 
-    @action(detail=True, methods=['post'])
+    @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated])
     def register(self, request, pk=None):
-        """Registers the user for the event."""
         event = get_object_or_404(Event, pk=pk)
         user = request.user
 
@@ -228,6 +227,7 @@ class EventViewSet(viewsets.ModelViewSet):
             status=status.HTTP_200_OK
         )
 
+
 # Leaderboard ViewSet
 class LeaderboardViewSet(viewsets.ModelViewSet):
     queryset = Leaderboard.objects.all().order_by('-xp_points')
@@ -236,13 +236,13 @@ class LeaderboardViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = StandardResultsSetPagination
 
+
 # Statistics and Analytics Views
 class StatisticViewSet(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        """Returns statistics for the admin or coordinator role."""
         if request.user.role not in ['coordinator', 'admin']:
             return Response(
                 {'error': 'Only coordinators or admins can view statistics.'},
@@ -258,9 +258,9 @@ class StatisticViewSet(APIView):
         }
         return Response(stats, status=status.HTTP_200_OK)
 
+
 class CheckAchievementsView(APIView):
     def post(self, request, user_id):
-        """Checks and unlocks achievements for the user based on their activity."""
         user = get_object_or_404(User, id=user_id)
         achievements = Achievement.objects.all()
         unlocked = []
@@ -275,8 +275,62 @@ class CheckAchievementsView(APIView):
         serializer = AchievementSerializer(unlocked, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+
 class TotalHoursStatsView(APIView):
     def get(self, request):
-        """Returns the total number of hours worked by users."""
-        total_hours = User.objects.aggregate(Sum('total_hours'))
-        return Response(total_hours, status=status.HTTP_200_OK)
+        end_date = timezone.now()
+        start_date = end_date - timedelta(days=365)
+
+        stats = User.objects.filter(
+            date_joined__range=[start_date, end_date]
+        ).extra(
+            {'month': "to_char(date_joined, 'YYYY-MM')"}
+        ).values('month').annotate(
+            total_hours=Sum('total_hours')
+        ).order_by('month')
+
+        return Response(stats)
+
+
+class CompletedTasksStatsView(APIView):
+    def get(self, request):
+        end_date = timezone.now()
+        start_date = end_date - timedelta(days=365)
+
+        stats = Task.objects.filter(
+            created_at__range=[start_date, end_date],
+            status='completed'
+        ).extra(
+            {'month': "to_char(created_at, 'YYYY-MM')"}
+        ).values('month').annotate(
+            completed_tasks=Count('id')
+        ).order_by('month')
+
+        return Response(stats)
+
+
+class GenderStatsView(APIView):
+    def get(self, request):
+        stats = User.objects.values('gender').annotate(
+            total_hours=Sum('total_hours'),
+            completed_tasks=Sum('completed_tasks')
+        )
+
+        result = {
+            'male': {'total_hours': 0, 'completed_tasks': 0},
+            'female': {'total_hours': 0, 'completed_tasks': 0},
+        }
+
+        for item in stats:
+            if item['gender'] == 'male':
+                result['male'] = {
+                    'total_hours': item['total_hours'],
+                    'completed_tasks': item['completed_tasks']
+                }
+            elif item['gender'] == 'female':
+                result['female'] = {
+                    'total_hours': item['total_hours'],
+                    'completed_tasks': item['completed_tasks']
+                }
+
+        return Response(result)
