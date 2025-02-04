@@ -7,8 +7,8 @@ USERS_URL = "https://red-crescent-production.up.railway.app/api/users/"
 
 # Test user credentials
 TEST_USER = {
-    "username": "yasin",  # Replace with actual test username
-    "password": "yasinatay"   # Replace with actual test password
+    "username": "testuser",  # Replace with actual test username
+    "password": "testpass123"   # Replace with actual test password
 }
 
 def get_auth_token():

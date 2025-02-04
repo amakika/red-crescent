@@ -9,6 +9,10 @@ from cloudinary.models import CloudinaryField
 import requests
 from io import BytesIO
 from PIL import Image
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
+from cloudinary.models import CloudinaryField
 
 
 class Achievement(models.Model):
@@ -19,6 +23,7 @@ class Achievement(models.Model):
 
     def __str__(self):
         return self.name
+
 
 
 class User(AbstractUser):
@@ -45,15 +50,8 @@ class User(AbstractUser):
         return f"{self.username} ({self.role})"
 
     def save(self, *args, **kwargs):
-        if self.profile_picture:
-            try:
-                response = requests.get(self.profile_picture.url)
-                img = Image.open(BytesIO(response.content))
-                img.verify()
-            except Exception:
-                raise ValidationError({'profile_picture': 'Invalid image file'})
+        # Remove image validation logic
         super().save(*args, **kwargs)
-
 
 class Task(models.Model):
     STATUS_CHOICES = [
