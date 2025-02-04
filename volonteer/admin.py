@@ -9,6 +9,10 @@ class AchievementAdmin(admin.ModelAdmin):
 
 
 @admin.register(User)
+class UserAdmin(admin.ModelAdmin):  # Добавляем UserAdmin
+    list_display = ('username', 'email', 'first_name', 'last_name', 'role')
+    search_fields = ('username', 'email')
+    list_filter = ('role',)
 
 
 @admin.register(Task)
