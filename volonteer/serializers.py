@@ -48,7 +48,7 @@ class TaskParticipationSerializer(serializers.ModelSerializer):
 
 
 class TaskSerializer(serializers.ModelSerializer):
-    photo = serializers.SerializerMethodField()
+    photo = serializers.ImageField(required=False)
     coordinator = UserSerializer(read_only=True)
     assigned_volunteers = serializers.PrimaryKeyRelatedField(
         queryset=User.objects.filter(role='volunteer'), many=True
