@@ -57,11 +57,7 @@ class TaskSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Task
-        fields = [
-            'id', 'title', 'description', 'photo', 'photo_url', 'assigned_volunteers', 'coordinator',
-            'status', 'due_date', 'hours_to_complete', 'location', 'is_public', 'volunteer_limit',
-            'created_at', 'updated_at', 'participations'
-        ]
+        fields ='__all__'
         read_only_fields = ['created_at', 'updated_at', 'photo_url', 'participations']
 
     def get_photo_url(self, obj):
