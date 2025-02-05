@@ -47,44 +47,39 @@ class TaskParticipationSerializer(serializers.ModelSerializer):
         read_only_fields = ['joined_at']
 
 
-
-
 class TaskSerializer(serializers.ModelSerializer):
+    photo_url = serializers.SerializerMethodField()
+    coordinator = UserSerializer(read_only=True)
     assigned_volunteers = serializers.PrimaryKeyRelatedField(
-        many=True,
-        queryset=User.objects.filter(role='volunteer'),
-        required=False
+        queryset=User.objects.filter(role='volunteer'), many=True
     )
-    coordinator = serializers.PrimaryKeyRelatedField(
-        queryset=User.objects.filter(role='coordinator'),
-        required=False, allow_null=True
-    )
-    is_full = serializers.SerializerMethodField()
-    is_participating = serializers.SerializerMethodField()
-    photo = serializers.ImageField(required=False, allow_null=True)
-    
+    participations = TaskParticipationSerializer(many=True, read_only=True)
+
     class Meta:
         model = Task
         fields = [
-            'id', 'title', 'description', 'photo', 'assigned_volunteers', 'coordinator',
-            'status', 'due_date', 'hours_to_complete', 'location', 'is_public',
-            'volunteer_limit', 'created_at', 'updated_at', 'is_full', 'is_participating'
+            'id', 'title', 'description', 'photo', 'photo_url', 'assigned_volunteers', 'coordinator',
+            'status', 'due_date', 'hours_to_complete', 'location', 'is_public', 'volunteer_limit',
+            'created_at', 'updated_at', 'participations'
         ]
-        read_only_fields = ['created_at', 'updated_at']
-    
-    def get_is_full(self, obj):
-        return obj.is_full()
-    
-    def get_is_participating(self, obj):
-        user = self.context.get('request').user
-        if user.is_authenticated:
-            return obj.is_participating(user)
-        return False
-    
-    def validate_assigned_volunteers(self, volunteers):
-        if len(volunteers) > self.instance.volunteer_limit:
-            raise serializers.ValidationError("Assigned volunteers exceed the limit.")
-        return volunteers
+        read_only_fields = ['created_at', 'updated_at', 'photo_url', 'participations']
+
+    def get_photo_url(self, obj):
+        if obj.photo:
+            return obj.photo.url
+        return None
+
+    def validate_due_date(self, value):
+        from django.utils import timezone
+        if value < timezone.now():
+            raise serializers.ValidationError("Due date cannot be in the past.")
+        return value
+
+    def validate_assigned_volunteers(self, value):
+        if len(value) > self.instance.volunteer_limit if self.instance else 0:
+            raise serializers.ValidationError("Number of assigned volunteers exceeds the limit.")
+        return value
+
 
 class EventSerializer(serializers.ModelSerializer):
     registered_volunteers = serializers.PrimaryKeyRelatedField(
