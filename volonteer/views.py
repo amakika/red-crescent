@@ -103,7 +103,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 # Task ViewSet
 class TaskViewSet(viewsets.ModelViewSet):
-    queryset = Task.objects.all().order_by('created_at')
+    queryset = Task.objects.all()
     serializer_class = TaskSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -113,8 +113,8 @@ class TaskViewSet(viewsets.ModelViewSet):
         """
         user = self.request.user
         if user.role == 'volunteer':
-            return Task.objects.filter(status='pending')
-        return Task.objects.all()
+            return Task.objects.filter(status='pending').order_by('created_at')
+        return Task.objects.all().order_by('created_at')
 
     @action(detail=True, methods=['get'])
     def is_participating(self, request, pk=None):
