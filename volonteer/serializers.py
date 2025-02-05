@@ -49,6 +49,12 @@ class TaskParticipationSerializer(serializers.ModelSerializer):
 
 
 
+from rest_framework import serializers
+from .models import Task, TaskParticipation
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
 class TaskSerializer(serializers.ModelSerializer):
     assigned_volunteers = serializers.PrimaryKeyRelatedField(
         many=True,
@@ -61,12 +67,11 @@ class TaskSerializer(serializers.ModelSerializer):
     )
     is_full = serializers.SerializerMethodField()
     is_participating = serializers.SerializerMethodField()
-    photo_url = serializers.SerializerMethodField()
     
     class Meta:
         model = Task
         fields = [
-            'id', 'title', 'description', 'photo_url', 'assigned_volunteers', 'coordinator',
+            'id', 'title', 'description', 'assigned_volunteers', 'coordinator',
             'status', 'due_date', 'hours_to_complete', 'location', 'is_public',
             'volunteer_limit', 'created_at', 'updated_at', 'is_full', 'is_participating'
         ]
@@ -81,13 +86,11 @@ class TaskSerializer(serializers.ModelSerializer):
             return obj.is_participating(user)
         return False
     
-    def get_photo_url(self, obj):
-        return obj.photo.url if obj.photo else None
-    
     def validate_assigned_volunteers(self, volunteers):
         if len(volunteers) > self.instance.volunteer_limit:
             raise serializers.ValidationError("Assigned volunteers exceed the limit.")
         return volunteers
+
 
 class EventSerializer(serializers.ModelSerializer):
     registered_volunteers = serializers.PrimaryKeyRelatedField(
