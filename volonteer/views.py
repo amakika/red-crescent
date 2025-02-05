@@ -103,7 +103,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 # Task ViewSet
 class TaskViewSet(viewsets.ModelViewSet):
-    queryset = Task.objects.all()
+    queryset = Task.objects.all().order_by('created_at')
     serializer_class = TaskSerializer
     permission_classes = [permissions.IsAuthenticated]
 
